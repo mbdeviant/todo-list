@@ -3,8 +3,10 @@ export default function createNoteDisplay() {
     const notesButton = document.getElementById("notes-button");
 
     notesButton.addEventListener("click", () => {
-        if (container.hasChildNodes("noteContainer")) return;
-        container.appendChild(createNoteContainer());
+        removeAllChildNodes(container);
+
+        createNoteContainer();
+        createNote();
     });
 }
 
@@ -19,25 +21,35 @@ function createNoteContainer() {
     addNoteButton.innerHTML = "+";
 
     container.appendChild(addNoteButton);
+    container.appendChild(noteContainer);
 
     addNoteButton.addEventListener("click", () => {
-        noteContainer.appendChild(createNote());
+        console.log("ptats");
+        const note = createNote(
+            "",
+            `hsl(${360 * Math.random()},${25 + 70 * Math.random()}%,${
+                85 + 10 * Math.random()
+            }%)`
+        );
     });
-
     return noteContainer;
 }
-
-function createNote() {
+function createNote(text, color) {
+    // refactor to localStorage
     const noteContainer = document.getElementById("note-container");
     const noteItem = document.createElement("div");
     noteItem.classList.add("note-item");
+    noteItem.style.backgroundColor = color;
+    const notes = [];
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
 
-    const noteText = document.createElement("textarea");
-    noteText.classList.add("note-text");
-    noteText.spellcheck = false;
-    noteText.style.backgroundColor = `hsl(${360 * Math.random()},${
-        25 + 70 * Math.random()
-    }%,${85 + 10 * Math.random()}%)`;
+    noteItem.addEventListener("click", (e) => {
+        if (e.target !== noteItem) {
+            updateNote(noteItem);
+            console.log(notes);
+        }
+    });
 
     const removeButton = document.createElement("button");
     removeButton.setAttribute("id", "remove-button");
@@ -45,10 +57,43 @@ function createNote() {
     removeButton.innerHTML = "X";
 
     removeButton.addEventListener("click", () => {
+        console.log(notes);
+        removeNote(noteItem);
         noteContainer.removeChild(noteItem);
     });
-    noteItem.appendChild(noteText);
+    function updateNote(note) {
+        const index = notes.findIndex(
+            (savedNote) => savedNote.color === note.style.backgroundColor
+        );
+        if (index !== -1) {
+            notes[index].text = note.querySelector("textarea").value;
+        }
+    }
+    function removeNote(note) {
+        const index = notes.findIndex(
+            (savedNote) => savedNote.color === note.style.backgroundColor
+        );
+        if (index !== -1) {
+            notes.splice(index, 1);
+        }
+    }
+    function loadSavedNotes() {
+        // eslint-disable-next-line no-restricted-syntax
+        for (let i = 0; i < notes.length; i++) {
+            const stickyNote = createNote(notes[i].text, notes[i].color);
+            noteContainer.appendChild(stickyNote);
+        }
+    }
+
+    noteContainer.appendChild(noteItem);
+    noteItem.appendChild(textArea);
     noteItem.appendChild(removeButton);
 
-    return noteItem;
+    return { notes, loadSavedNotes, removeNote };
+}
+
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
 }
