@@ -96,8 +96,8 @@ img {
 }
 .note-item {
     display: flex;
-    gap: 8px;
     padding: 13px;
+    gap: 8px;
 }
 .remove-button {
     font-family: cursive;
@@ -120,6 +120,8 @@ img {
     height: 170px;
     min-width: 30px;
     min-height: 30px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+        rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 .note-text:focus {
     outline: none;
