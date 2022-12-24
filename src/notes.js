@@ -4,9 +4,7 @@ export default function createNoteDisplay() {
 
     notesButton.addEventListener("click", () => {
         removeAllChildNodes(container);
-
-        createNoteContainer();
-        createNote();
+        container.appendChild(createNoteContainer());
     });
 }
 
@@ -18,78 +16,84 @@ function createNoteContainer() {
     const addNoteButton = document.createElement("button");
     addNoteButton.classList.add("add-note-button");
     addNoteButton.setAttribute("id", "add-note-button");
-    addNoteButton.innerHTML = "+";
+    addNoteButton.innerHTML = "+Add a new note";
 
     container.appendChild(addNoteButton);
-    container.appendChild(noteContainer);
 
     addNoteButton.addEventListener("click", () => {
-        console.log("ptats");
         const note = createNote(
             "",
             `hsl(${360 * Math.random()},${25 + 70 * Math.random()}%,${
                 85 + 10 * Math.random()
             }%)`
         );
+        const notes = JSON.parse(localStorage.getItem("notes")) || [];
+        notes.push({ text: "", color: note.style.backgroundColor });
+        localStorage.setItem("notes", JSON.stringify(notes));
+        noteContainer.appendChild(note);
     });
+    noteContainer.addEventListener("click", (e) => {
+        if (e.target.matches(".remove-button")) {
+            const note = e.target.parentNode;
+            noteContainer.removeChild(note);
+            removeNote(note);
+        }
+    });
+    noteContainer.addEventListener("input", (e) => {
+        if (e.target.matches("textarea")) {
+            updateNote(e.target.parentNode);
+        }
+    });
+    function loadSavedNotes() {
+        const notes = JSON.parse(localStorage.getItem("notes")) || [];
+        // eslint-disable-next-line no-restricted-syntax
+        for (const note of notes) {
+            const stickyNote = createNote(note.text, note.color);
+            noteContainer.appendChild(stickyNote);
+        }
+    }
+    loadSavedNotes();
     return noteContainer;
 }
 function createNote(text, color) {
-    // refactor to localStorage
-    const noteContainer = document.getElementById("note-container");
-    const noteItem = document.createElement("div");
-    noteItem.classList.add("note-item");
-    noteItem.style.backgroundColor = color;
-    const notes = [];
-    const textArea = document.createElement("textarea");
-    textArea.value = text;
+    const stickyNote = document.createElement("div");
+    stickyNote.classList.add("note-item");
+    stickyNote.style.backgroundColor = color;
 
-    noteItem.addEventListener("click", (e) => {
-        if (e.target !== noteItem) {
-            updateNote(noteItem);
-            console.log(notes);
-        }
-    });
+    const textArea = document.createElement("textarea");
+    textArea.classList.add("note-text");
+    textArea.spellcheck = false;
+    textArea.value = text;
 
     const removeButton = document.createElement("button");
     removeButton.setAttribute("id", "remove-button");
     removeButton.classList.add("remove-button");
     removeButton.innerHTML = "X";
 
-    removeButton.addEventListener("click", () => {
-        console.log(notes);
-        removeNote(noteItem);
-        noteContainer.removeChild(noteItem);
-    });
-    function updateNote(note) {
-        const index = notes.findIndex(
-            (savedNote) => savedNote.color === note.style.backgroundColor
-        );
-        if (index !== -1) {
-            notes[index].text = note.querySelector("textarea").value;
-        }
-    }
-    function removeNote(note) {
-        const index = notes.findIndex(
-            (savedNote) => savedNote.color === note.style.backgroundColor
-        );
-        if (index !== -1) {
-            notes.splice(index, 1);
-        }
-    }
-    function loadSavedNotes() {
-        // eslint-disable-next-line no-restricted-syntax
-        for (let i = 0; i < notes.length; i++) {
-            const stickyNote = createNote(notes[i].text, notes[i].color);
-            noteContainer.appendChild(stickyNote);
-        }
-    }
+    stickyNote.appendChild(textArea);
+    stickyNote.appendChild(removeButton);
 
-    noteContainer.appendChild(noteItem);
-    noteItem.appendChild(textArea);
-    noteItem.appendChild(removeButton);
-
-    return { notes, loadSavedNotes, removeNote };
+    return stickyNote;
+}
+function updateNote(note) {
+    const notes = JSON.parse(localStorage.getItem("notes")) || [];
+    const index = notes.findIndex(
+        (savedNote) => savedNote.color === note.style.backgroundColor
+    );
+    if (index !== -1) {
+        notes[index].text = note.querySelector("textarea").value;
+        localStorage.setItem("notes", JSON.stringify(notes));
+    }
+}
+function removeNote(note) {
+    const notes = JSON.parse(localStorage.getItem("notes")) || [];
+    const index = notes.findIndex(
+        (savedNote) => savedNote.color === note.style.backgroundColor
+    );
+    if (index !== -1) {
+        notes.splice(index, 1);
+        localStorage.setItem("notes", JSON.stringify(notes));
+    }
 }
 
 function removeAllChildNodes(parent) {
