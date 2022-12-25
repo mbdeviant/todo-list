@@ -8,8 +8,17 @@ export default function createTasksDisplay() {
     });
 }
 
-export function createTaskContainer() {
+function createTaskContainer() {
+    const container = document.getElementById("content-container");
     const taskContainer = document.createElement("div");
+    taskContainer.setAttribute("id", "task-container");
+
+    const newNoteButton = document.createElement("button");
+    newNoteButton.innerHTML = "+New task";
+    newNoteButton.classList.add("new-task-button");
+
+    container.appendChild(newNoteButton);
+
     const text = document.createElement("p");
     text.innerHTML = "i like potatoes";
     taskContainer.appendChild(text);
