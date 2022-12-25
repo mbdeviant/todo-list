@@ -81,7 +81,8 @@ img {
     max-height: calc(100% - 28px);
 }
 
-.add-note-button {
+.new-note-button,
+.new-task-button {
     align-self: center;
     font-size: 24px;
     padding: 4px;
@@ -93,15 +94,15 @@ img {
     transition: 0.2s;
     user-select: none;
 }
-.add-note-button:hover {
+.new-note-button:hover,
+.new-task-button:hover {
     background-color: rgba(0, 0, 0, 0.4);
 }
 .note-item {
     display: flex;
     background-color: transparent;
     width: 260px;
-    border-radius: 9px;
-    padding: 13px;
+    padding: 3px;
     gap: 25px;
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
         rgba(0, 0, 0, 0.23) 0px 6px 6px;
