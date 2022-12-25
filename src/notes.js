@@ -1,7 +1,6 @@
 export default function createNoteDisplay() {
     const container = document.getElementById("content-container");
     const notesButton = document.getElementById("notes-button");
-
     notesButton.addEventListener("click", () => {
         removeAllChildNodes(container);
         container.appendChild(createNoteContainer());
@@ -13,21 +12,21 @@ function createNoteContainer() {
     const noteContainer = document.createElement("div");
     noteContainer.setAttribute("id", "note-container");
 
-    const addNoteButton = document.createElement("button");
-    addNoteButton.classList.add("add-note-button");
-    addNoteButton.setAttribute("id", "add-note-button");
-    addNoteButton.innerHTML = "+Add a new note";
+    const newNoteButton = document.createElement("button");
+    newNoteButton.classList.add("new-note-button");
+    newNoteButton.setAttribute("id", "new-note-button");
+    newNoteButton.innerHTML = "+Add a new note";
 
-    container.appendChild(addNoteButton);
+    container.appendChild(newNoteButton);
 
-    addNoteButton.addEventListener("click", () => {
+    newNoteButton.addEventListener("click", () => {
         const note = createNote(
             "",
             `hsl(${360 * Math.random()},${25 + 70 * Math.random()}%,${
                 85 + 10 * Math.random()
             }%)`
         );
-        const notes = JSON.parse(localStorage.getItem("notes")) || [];
+        const notes = JSON.parse(localStorage.getItem("notes"));
         notes.push({ text: "", color: note.style.backgroundColor });
         localStorage.setItem("notes", JSON.stringify(notes));
         noteContainer.appendChild(note);
@@ -45,7 +44,7 @@ function createNoteContainer() {
         }
     });
     function loadSavedNotes() {
-        const notes = JSON.parse(localStorage.getItem("notes")) || [];
+        const notes = JSON.parse(localStorage.getItem("notes"));
         // eslint-disable-next-line no-restricted-syntax
         for (const note of notes) {
             const stickyNote = createNote(note.text, note.color);
@@ -76,7 +75,7 @@ function createNote(text, color) {
     return stickyNote;
 }
 function updateNote(note) {
-    const notes = JSON.parse(localStorage.getItem("notes")) || [];
+    const notes = JSON.parse(localStorage.getItem("notes"));
     const index = notes.findIndex(
         (savedNote) => savedNote.color === note.style.backgroundColor
     );
@@ -86,7 +85,7 @@ function updateNote(note) {
     }
 }
 function removeNote(note) {
-    const notes = JSON.parse(localStorage.getItem("notes")) || [];
+    const notes = JSON.parse(localStorage.getItem("notes"));
     const index = notes.findIndex(
         (savedNote) => savedNote.color === note.style.backgroundColor
     );
