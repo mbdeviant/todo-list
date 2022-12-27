@@ -16,6 +16,27 @@
             </div>
         </header>
         <div class="container">
+            <div id="task-form-overlay">
+                <div class="task-form-container">
+                    <form id="task-form">
+                        <input
+                            type="text"
+                            name="task-desc"
+                            class="task-desc"
+                            placeholder="Description"
+                        />
+                        <div>
+                            <label for="task-due-date">Due Date:</label>
+                            <input
+                                type="date"
+                                name="task-due-date"
+                                class="task-due-date"
+                            />
+                        </div>
+                        <button type="submit" class="task-button">Add</button>
+                    </form>
+                </div>
+            </div>
             <nav class="nav">
                 <button id="all-button">All</button>
                 <button id="today-button">Today</button>
