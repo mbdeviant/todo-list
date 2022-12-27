@@ -26,7 +26,7 @@ function createNoteContainer() {
                 85 + 10 * Math.random()
             }%)`
         );
-        const notes = JSON.parse(localStorage.getItem("notes"));
+        const notes = JSON.parse(localStorage.getItem("notes")) || []; // if notes are null don't return value, set it to an array
         notes.push({ text: "", color: note.style.backgroundColor });
         localStorage.setItem("notes", JSON.stringify(notes));
         noteContainer.appendChild(note);
@@ -44,7 +44,7 @@ function createNoteContainer() {
         }
     });
     function loadSavedNotes() {
-        const notes = JSON.parse(localStorage.getItem("notes"));
+        const notes = JSON.parse(localStorage.getItem("notes")) || [];
         // eslint-disable-next-line no-restricted-syntax
         for (const note of notes) {
             const stickyNote = createNote(note.text, note.color);
@@ -75,7 +75,7 @@ function createNote(text, color) {
     return stickyNote;
 }
 function updateNote(note) {
-    const notes = JSON.parse(localStorage.getItem("notes"));
+    const notes = JSON.parse(localStorage.getItem("notes")) || [];
     const index = notes.findIndex(
         (savedNote) => savedNote.color === note.style.backgroundColor
     );
@@ -85,7 +85,7 @@ function updateNote(note) {
     }
 }
 function removeNote(note) {
-    const notes = JSON.parse(localStorage.getItem("notes"));
+    const notes = JSON.parse(localStorage.getItem("notes")) || [];
     const index = notes.findIndex(
         (savedNote) => savedNote.color === note.style.backgroundColor
     );
