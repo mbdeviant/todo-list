@@ -13,17 +13,37 @@ function createTaskContainer() {
     const taskContainer = document.createElement("div");
     taskContainer.setAttribute("id", "task-container");
 
-    const newNoteButton = document.createElement("button");
-    newNoteButton.innerHTML = "+New task";
-    newNoteButton.classList.add("new-task-button");
+    const newTaskButton = document.createElement("button");
+    newTaskButton.innerHTML = "+New task";
+    newTaskButton.classList.add("new-task-button");
+    container.appendChild(newTaskButton);
 
-    container.appendChild(newNoteButton);
+    newTaskButton.addEventListener("click", () => {
+        createTask();
+    });
 
     const text = document.createElement("p");
     text.innerHTML = "i like potatoes";
     taskContainer.appendChild(text);
 
     return taskContainer;
+}
+
+function createTask(description, date) {
+    toggleOverlay();
+    const taskItem = document.createElement("div");
+    taskItem.classList.add("task-item");
+}
+
+function toggleOverlay() {
+    const taskFormOverlay = document.getElementById("task-form-overlay");
+
+    taskFormOverlay.style.display = "block";
+
+    taskFormOverlay.addEventListener("click", (e) => {
+        if (e.target === taskFormOverlay)
+            taskFormOverlay.style.display = "none";
+    });
 }
 
 function removeAllChildNodes(parent) {
