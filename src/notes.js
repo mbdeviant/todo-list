@@ -2,6 +2,7 @@ export default function createNoteDisplay() {
     const container = document.getElementById("content-container");
     const notesButton = document.getElementById("notes-button");
     notesButton.addEventListener("click", () => {
+        if (container.querySelector("#note-container")) return;
         removeAllChildNodes(container);
         container.appendChild(createNoteContainer());
     });
