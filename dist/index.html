@@ -23,7 +23,9 @@
                             type="text"
                             name="task-desc"
                             class="task-desc"
+                            id="task-desc"
                             placeholder="Description"
+                            required
                         />
                         <div>
                             <label for="task-due-date">Due Date:</label>
@@ -31,9 +33,17 @@
                                 type="date"
                                 name="task-due-date"
                                 class="task-due-date"
+                                id="task-due-date"
+                                required
                             />
                         </div>
-                        <button type="submit" class="task-button">Add</button>
+                        <button
+                            type="submit"
+                            class="task-button"
+                            id="add-task-button"
+                        >
+                            Add
+                        </button>
                     </form>
                 </div>
             </div>
