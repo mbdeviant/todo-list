@@ -75,11 +75,11 @@ function createTask() {
 
 function isEmpty() {
     const description = document.getElementById("task-desc");
-    const emptyValueAlert = document.createElement("p");
+    const date = document.getElementById("task-due-date");
     let descIsEmpty = true;
-    emptyValueAlert.innerHTML = "Description cannot be empty";
-    if (description.value !== "") descIsEmpty = false;
-    if (description.value === "") descIsEmpty = true;
+    if (description.value !== "" || date.value !== "") descIsEmpty = false;
+    if (description.value === "" || date.value === "") descIsEmpty = true;
+
     return descIsEmpty;
 }
 
