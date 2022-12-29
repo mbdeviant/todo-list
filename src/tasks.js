@@ -8,7 +8,7 @@ export default function createTasksDisplay() {
         container.appendChild(createTaskContainer());
     });
 }
-const overlay = (() => {
+const Overlay = (() => {
     const taskFormOverlay = document.getElementById("task-form-overlay");
     taskFormOverlay.addEventListener("click", (e) => {
         if (e.target === taskFormOverlay)
@@ -25,6 +25,37 @@ const overlay = (() => {
         show,
     };
 })();
+const Form = (() => {
+    const formContainer = document.getElementById("task-form-container");
+    const form = document.getElementById("task-form");
+    const description = document.getElementById("task-desc");
+    const date = document.getElementById("task-due-date");
+    let empty = true;
+
+    function reset() {
+        form.reset();
+    }
+
+    function showError() {
+        if (formContainer.querySelector("#form-warning"));
+        const formWarning = document.createElement("p");
+        formWarning.innerHTML = "dont";
+        formWarning.setAttribute("id", "form-warning");
+        formContainer.appendChild(formWarning);
+    }
+    function removeError() {
+        const error = document.querySelector("#form-warning");
+        formContainer.removeChild(error);
+        console.log("reaches her"); // something wrong here
+    }
+    function isEmpty() {
+        if (description.value === "" || date.value === "") empty = true;
+        if (description.value !== "" && date.value !== "") empty = false;
+        return empty;
+    }
+
+    return { reset, showError, isEmpty, removeError };
+})();
 
 function createTaskContainer() {
     const container = document.getElementById("content-container");
@@ -37,7 +68,7 @@ function createTaskContainer() {
     container.appendChild(newTaskButton);
 
     newTaskButton.addEventListener("click", () => {
-        overlay.show();
+        Overlay.show();
         taskContainer.appendChild(createTask());
     });
 
@@ -55,7 +86,14 @@ function createTask() {
 
     addTaskButton.addEventListener("click", (e) => {
         e.preventDefault();
-        if (isEmpty()) return;
+        if (Form.isEmpty()) {
+            Form.showError();
+            return;
+        }
+        console.log(Form.isEmpty());
+        if (Form.isEmpty() === false) {
+            Form.removeError();
+        }
 
         const description = document.createElement("p");
         description.innerHTML = document.getElementById("task-desc").value;
@@ -67,25 +105,10 @@ function createTask() {
 
         taskItem.appendChild(description);
         taskItem.appendChild(date);
-        overlay.close();
-        resetForm();
+        Overlay.close();
+        Form.reset();
     });
     return taskItem;
-}
-
-function isEmpty() {
-    const description = document.getElementById("task-desc");
-    const date = document.getElementById("task-due-date");
-    let descIsEmpty = true;
-    if (description.value !== "" || date.value !== "") descIsEmpty = false;
-    if (description.value === "" || date.value === "") descIsEmpty = true;
-
-    return descIsEmpty;
-}
-
-function resetForm() {
-    const form = document.getElementById("task-form");
-    form.reset();
 }
 
 function removeAllChildNodes(parent) {
