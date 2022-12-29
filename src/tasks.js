@@ -10,6 +10,10 @@ export default function createTasksDisplay() {
 }
 const overlay = (() => {
     const taskFormOverlay = document.getElementById("task-form-overlay");
+    taskFormOverlay.addEventListener("click", (e) => {
+        if (e.target === taskFormOverlay)
+            taskFormOverlay.style.display = "none";
+    });
     function close() {
         taskFormOverlay.style.display = "none";
     }
@@ -48,22 +52,26 @@ function createTask() {
     const addTaskButton = document.getElementById("add-task-button");
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
-    const description = document.createElement("p");
 
     addTaskButton.addEventListener("click", (e) => {
         e.preventDefault();
         if (isEmpty()) return;
-        overlay.close();
+
+        const description = document.createElement("p");
         description.innerHTML = document.getElementById("task-desc").value;
+
         const dateInput = document.getElementById("task-due-date").value;
         const dueDate = new Date(dateInput);
+        const date = document.createElement("p");
+        date.innerHTML = dueDate.toLocaleDateString();
 
         taskItem.appendChild(description);
+        taskItem.appendChild(date);
+        overlay.close();
+        resetForm();
     });
     return taskItem;
 }
-// return the taskItem and append it to task container above
-// should do this when you click add button on form, not new task button
 
 function isEmpty() {
     const description = document.getElementById("task-desc");
@@ -73,6 +81,11 @@ function isEmpty() {
     if (description.value !== "") descIsEmpty = false;
     if (description.value === "") descIsEmpty = true;
     return descIsEmpty;
+}
+
+function resetForm() {
+    const form = document.getElementById("task-form");
+    form.reset();
 }
 
 function removeAllChildNodes(parent) {
