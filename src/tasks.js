@@ -36,21 +36,26 @@ const Form = (() => {
         form.reset();
     }
 
-    function showError() {
-        if (formContainer.querySelector("#form-warning"));
+    function showWarning() {
+        if (formContainer.querySelector("#form-warning")) return;
         const formWarning = document.createElement("p");
         formWarning.innerHTML = "dont";
         formWarning.setAttribute("id", "form-warning");
         formContainer.appendChild(formWarning);
     }
-
+    function removeWarning() {
+        if (!formContainer.querySelector("#form-warning")) return;
+        const formWarning = document.querySelector("#form-warning");
+        formContainer.removeChild(formWarning);
+        console.log("reaches her"); // something wrong here
+    }
     function isEmpty() {
         if (description.value === "" || date.value === "") empty = true;
         if (description.value !== "" && date.value !== "") empty = false;
         return empty;
     }
 
-    return { reset, showError, isEmpty };
+    return { reset, showWarning, isEmpty, removeWarning };
 })();
 
 function createTaskContainer() {
@@ -83,10 +88,13 @@ function createTask() {
     addTaskButton.addEventListener("click", (e) => {
         e.preventDefault();
         if (Form.isEmpty()) {
-            Form.showError();
+            Form.showWarning();
             return;
         }
         console.log(Form.isEmpty());
+        if (Form.isEmpty() === false) {
+            Form.removeWarning();
+        }
 
         const description = document.createElement("p");
         description.innerHTML = document.getElementById("task-desc").value;
