@@ -161,7 +161,7 @@ img {
     max-width: 750px;
     height: 75px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
     margin: auto;
     position: absolute;
