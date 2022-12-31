@@ -32,6 +32,14 @@ const Form = (() => {
     const date = document.getElementById("task-due-date");
     const formWarning = document.createElement("p");
     let empty = true;
+    description.addEventListener("keydown", () => {
+        if (!formContainer.querySelector("#form-warning")) return;
+        formContainer.removeChild(formWarning);
+    });
+    date.addEventListener("click", () => {
+        if (!formContainer.querySelector("#form-warning")) return;
+        formContainer.removeChild(formWarning);
+    });
 
     function reset() {
         form.reset();
@@ -39,7 +47,7 @@ const Form = (() => {
 
     function showWarning() {
         if (formContainer.querySelector("#form-warning")) return;
-        formWarning.textContent = "dont";
+        formWarning.textContent = "Please fill all the blanks.";
         formWarning.setAttribute("id", "form-warning");
         formContainer.appendChild(formWarning);
     }
