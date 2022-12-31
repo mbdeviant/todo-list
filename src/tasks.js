@@ -30,6 +30,7 @@ const Form = (() => {
     const form = document.getElementById("task-form");
     const description = document.getElementById("task-desc");
     const date = document.getElementById("task-due-date");
+    const formWarning = document.createElement("p");
     let empty = true;
 
     function reset() {
@@ -38,14 +39,12 @@ const Form = (() => {
 
     function showWarning() {
         if (formContainer.querySelector("#form-warning")) return;
-        const formWarning = document.createElement("p");
-        formWarning.innerHTML = "dont";
+        formWarning.textContent = "dont";
         formWarning.setAttribute("id", "form-warning");
         formContainer.appendChild(formWarning);
     }
     function removeWarning() {
         if (!formContainer.querySelector("#form-warning")) return;
-        const formWarning = document.querySelector("#form-warning");
         formContainer.removeChild(formWarning);
         console.log("reaches her"); // something wrong here
     }
@@ -64,7 +63,7 @@ function createTaskContainer() {
     taskContainer.setAttribute("id", "task-container");
 
     const newTaskButton = document.createElement("button");
-    newTaskButton.innerHTML = "+New task";
+    newTaskButton.textContent = "+New task";
     newTaskButton.classList.add("new-task-button");
     container.appendChild(newTaskButton);
 
@@ -74,7 +73,7 @@ function createTaskContainer() {
     });
 
     const text = document.createElement("p");
-    text.innerHTML = "i like potatoes";
+    text.textContent = "i like potatoes";
     taskContainer.appendChild(text);
 
     return taskContainer;
@@ -97,12 +96,12 @@ function createTask() {
         }
 
         const description = document.createElement("p");
-        description.innerHTML = document.getElementById("task-desc").value;
+        description.textContent = document.getElementById("task-desc").value;
 
         const dateInput = document.getElementById("task-due-date").value;
         const dueDate = new Date(dateInput);
         const date = document.createElement("p");
-        date.innerHTML = dueDate.toLocaleDateString();
+        date.textContent = dueDate.toLocaleDateString();
 
         taskItem.appendChild(description);
         taskItem.appendChild(date);
