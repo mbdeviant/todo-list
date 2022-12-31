@@ -43,18 +43,14 @@ const Form = (() => {
         formWarning.setAttribute("id", "form-warning");
         formContainer.appendChild(formWarning);
     }
-    function removeError() {
-        const error = document.querySelector("#form-warning");
-        formContainer.removeChild(error);
-        console.log("reaches her"); // something wrong here
-    }
+
     function isEmpty() {
         if (description.value === "" || date.value === "") empty = true;
         if (description.value !== "" && date.value !== "") empty = false;
         return empty;
     }
 
-    return { reset, showError, isEmpty, removeError };
+    return { reset, showError, isEmpty };
 })();
 
 function createTaskContainer() {
@@ -91,9 +87,6 @@ function createTask() {
             return;
         }
         console.log(Form.isEmpty());
-        if (Form.isEmpty() === false) {
-            Form.removeError();
-        }
 
         const description = document.createElement("p");
         description.innerHTML = document.getElementById("task-desc").value;
