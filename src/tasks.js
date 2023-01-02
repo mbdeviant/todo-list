@@ -81,7 +81,7 @@ function createTaskContainer() {
 
     newTaskButton.addEventListener("click", () => {
         Overlay.show();
-        taskContainer.appendChild(createTaskOverlay());
+        taskContainer.appendChild(createTask());
     });
 
     const text = document.createElement("p");
@@ -91,7 +91,7 @@ function createTaskContainer() {
     return taskContainer;
 }
 
-function createTaskOverlay() {
+function createTask() {
     const addTaskButton = document.getElementById("add-task-button");
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
