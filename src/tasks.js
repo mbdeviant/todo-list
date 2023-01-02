@@ -8,6 +8,49 @@ export default function createTasksDisplay() {
         container.appendChild(createTaskContainer());
     });
 }
+
+const Form = (() => {
+    const formContainer = document.getElementById("task-form-container");
+    const form = document.getElementById("task-form");
+    const description = document.getElementById("task-desc");
+    const date = document.getElementById("task-due-date");
+    const formWarning = document.createElement("p");
+    formWarning.setAttribute("id", "form-warning");
+    let empty = true;
+
+    description.addEventListener("keydown", () => {
+        if (!formContainer.querySelector("#form-warning")) return;
+        formContainer.removeChild(formWarning);
+    });
+    date.addEventListener("click", () => {
+        if (!formContainer.querySelector("#form-warning")) return;
+        formContainer.removeChild(formWarning);
+    });
+    formContainer.addEventListener("click", (e) => {
+        console.log(e.target.id);
+    });
+
+    function reset() {
+        form.reset();
+    }
+
+    function showWarning() {
+        if (formContainer.querySelector("#form-warning")) return;
+        formWarning.textContent = "Please fill all the blanks.";
+        formContainer.appendChild(formWarning);
+    }
+    function removeWarning() {
+        if (!formContainer.querySelector("#form-warning")) return;
+        formContainer.removeChild(formWarning);
+    }
+    function isEmpty() {
+        if (description.value === "" || date.value === "") empty = true;
+        if (description.value !== "" && date.value !== "") empty = false;
+        return empty;
+    }
+
+    return { reset, showWarning, isEmpty, removeWarning };
+})();
 const Overlay = (() => {
     const taskFormOverlay = document.getElementById("task-form-overlay");
     taskFormOverlay.addEventListener("click", (e) => {
@@ -25,45 +68,6 @@ const Overlay = (() => {
         show,
     };
 })();
-const Form = (() => {
-    const formContainer = document.getElementById("task-form-container");
-    const form = document.getElementById("task-form");
-    const description = document.getElementById("task-desc");
-    const date = document.getElementById("task-due-date");
-    const formWarning = document.createElement("p");
-    let empty = true;
-    description.addEventListener("keydown", () => {
-        if (!formContainer.querySelector("#form-warning")) return;
-        formContainer.removeChild(formWarning);
-    });
-    date.addEventListener("click", () => {
-        if (!formContainer.querySelector("#form-warning")) return;
-        formContainer.removeChild(formWarning);
-    });
-
-    function reset() {
-        form.reset();
-    }
-
-    function showWarning() {
-        if (formContainer.querySelector("#form-warning")) return;
-        formWarning.textContent = "Please fill all the blanks.";
-        formWarning.setAttribute("id", "form-warning");
-        formContainer.appendChild(formWarning);
-    }
-    function removeWarning() {
-        if (!formContainer.querySelector("#form-warning")) return;
-        formContainer.removeChild(formWarning);
-        console.log("reaches her"); // something wrong here
-    }
-    function isEmpty() {
-        if (description.value === "" || date.value === "") empty = true;
-        if (description.value !== "" && date.value !== "") empty = false;
-        return empty;
-    }
-
-    return { reset, showWarning, isEmpty, removeWarning };
-})();
 
 function createTaskContainer() {
     const container = document.getElementById("content-container");
@@ -77,7 +81,7 @@ function createTaskContainer() {
 
     newTaskButton.addEventListener("click", () => {
         Overlay.show();
-        taskContainer.appendChild(createTask());
+        taskContainer.appendChild(createTaskOverlay());
     });
 
     const text = document.createElement("p");
@@ -87,7 +91,7 @@ function createTaskContainer() {
     return taskContainer;
 }
 
-function createTask() {
+function createTaskOverlay() {
     const addTaskButton = document.getElementById("add-task-button");
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
@@ -97,10 +101,6 @@ function createTask() {
         if (Form.isEmpty()) {
             Form.showWarning();
             return;
-        }
-        console.log(Form.isEmpty());
-        if (Form.isEmpty() === false) {
-            Form.removeWarning();
         }
 
         const description = document.createElement("p");
@@ -116,6 +116,7 @@ function createTask() {
         Overlay.close();
         Form.reset();
     });
+    Form.removeWarning();
     return taskItem;
 }
 
