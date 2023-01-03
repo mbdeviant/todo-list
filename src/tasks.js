@@ -72,7 +72,7 @@ const Overlay = (() => {
 function createTaskContainer() {
     const container = document.getElementById("content-container");
     const taskContainer = document.createElement("div");
-    taskContainer.setAttribute("id", "task-container");
+    taskContainer.setAttribute("id", "task-item-container");
 
     const newTaskButton = document.createElement("button");
     newTaskButton.textContent = "+New task";
