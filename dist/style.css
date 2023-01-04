@@ -198,6 +198,10 @@ img {
     display: flex;
     flex-direction: column;
 }
+.task-item {
+    display: flex;
+    padding: 34px 0px;
+}
 
 .task-desc {
     border-radius: 4px;
@@ -226,4 +230,8 @@ img {
     padding: 2px;
     width: 75px;
     height: 30px;
+}
+.completed {
+    background-color: gray;
+    text-decoration: line-through;
 }
