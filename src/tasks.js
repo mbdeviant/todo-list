@@ -30,6 +30,9 @@ const Form = (() => {
     function reset() {
         form.reset();
     }
+    function focus() {
+        description.focus();
+    }
 
     function showWarning() {
         if (formContainer.querySelector("#form-warning")) return;
@@ -46,7 +49,7 @@ const Form = (() => {
         return empty;
     }
 
-    return { reset, showWarning, isEmpty, removeWarning };
+    return { reset, showWarning, isEmpty, removeWarning, focus };
 })();
 const Overlay = (() => {
     const taskFormOverlay = document.getElementById("task-form-overlay");
@@ -81,6 +84,7 @@ function createTaskContainer() {
         Overlay.show();
         Form.reset();
         Form.removeWarning();
+        Form.focus();
     });
     addTaskButton.addEventListener("click", (e) => {
         e.preventDefault();
@@ -88,9 +92,11 @@ function createTaskContainer() {
             Form.showWarning();
             return;
         }
-        taskContainer.appendChild(createTask());
+        const task = createTask();
+        taskContainer.appendChild(task);
         Overlay.close();
     });
+
     const text = document.createElement("p");
     text.textContent = "i like potatoes";
     taskContainer.appendChild(text);
@@ -99,10 +105,12 @@ function createTaskContainer() {
 }
 
 function createTask() {
-    console.log("ğü");
-
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
+
+    const checkbox = document.createElement("input");
+    checkbox.setAttribute("type", "checkbox");
+    checkbox.classList.add("checkbox");
 
     const description = document.createElement("p");
     description.classList.add("task-desc-preview");
@@ -113,6 +121,13 @@ function createTask() {
     const date = document.createElement("p");
     date.textContent = dueDate.toDateString();
 
+    taskItem.addEventListener("click", (e) => {
+        if (e.target.matches(".checkbox")) {
+            taskItem.classList.toggle("completed");
+        }
+    });
+
+    taskItem.appendChild(checkbox);
     taskItem.appendChild(description);
     taskItem.appendChild(date);
 
