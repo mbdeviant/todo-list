@@ -26,9 +26,6 @@ const Form = (() => {
         if (!formContainer.querySelector("#form-warning")) return;
         formContainer.removeChild(formWarning);
     });
-    formContainer.addEventListener("click", (e) => {
-        console.log(e.target.id);
-    });
 
     function reset() {
         form.reset();
@@ -72,6 +69,7 @@ const Overlay = (() => {
 function createTaskContainer() {
     const container = document.getElementById("content-container");
     const taskContainer = document.createElement("div");
+    const addTaskButton = document.getElementById("add-task-button");
     taskContainer.setAttribute("id", "task-item-container");
 
     const newTaskButton = document.createElement("button");
@@ -81,42 +79,43 @@ function createTaskContainer() {
 
     newTaskButton.addEventListener("click", () => {
         Overlay.show();
-        taskContainer.appendChild(createTask());
+        Form.reset();
+        Form.removeWarning();
     });
-
-    const text = document.createElement("p");
-    text.textContent = "i like potatoes";
-    taskContainer.appendChild(text);
-
-    return taskContainer;
-}
-
-function createTask() {
-    const addTaskButton = document.getElementById("add-task-button");
-    const taskItem = document.createElement("div");
-    taskItem.classList.add("task-item");
-
     addTaskButton.addEventListener("click", (e) => {
         e.preventDefault();
         if (Form.isEmpty()) {
             Form.showWarning();
             return;
         }
-
-        const description = document.createElement("p");
-        description.textContent = document.getElementById("task-desc").value;
-
-        const dateInput = document.getElementById("task-due-date").value;
-        const dueDate = new Date(dateInput);
-        const date = document.createElement("p");
-        date.textContent = dueDate.toLocaleDateString();
-
-        taskItem.appendChild(description);
-        taskItem.appendChild(date);
+        taskContainer.appendChild(createTask());
         Overlay.close();
-        Form.reset();
     });
-    Form.removeWarning();
+    const text = document.createElement("p");
+    text.textContent = "i like potatoes";
+    taskContainer.appendChild(text);
+    // load saved tasks here
+    return taskContainer;
+}
+
+function createTask() {
+    console.log("ğü");
+
+    const taskItem = document.createElement("div");
+    taskItem.classList.add("task-item");
+
+    const description = document.createElement("p");
+    description.classList.add("task-desc-preview");
+    description.textContent = document.getElementById("task-desc").value;
+
+    const dateInput = document.getElementById("task-due-date").value;
+    const dueDate = new Date(dateInput);
+    const date = document.createElement("p");
+    date.textContent = dueDate.toDateString();
+
+    taskItem.appendChild(description);
+    taskItem.appendChild(date);
+
     return taskItem;
 }
 
