@@ -112,7 +112,17 @@ function createTask() {
     checkbox.setAttribute("type", "checkbox");
     checkbox.classList.add("checkbox");
 
-    const description = document.createElement("p");
+    const editButton = document.createElement("button");
+    editButton.innerHTML = `&#9998;`;
+    editButton.classList.add("task-edit-button");
+
+    const removeButton = document.createElement("button");
+    removeButton.setAttribute("id", "remove-button");
+    removeButton.classList.add("remove-button");
+    removeButton.innerHTML = "X";
+
+    const description = document.createElement("textarea");
+    description.readOnly = true;
     description.classList.add("task-desc-preview");
     description.textContent = document.getElementById("task-desc").value;
 
@@ -121,15 +131,20 @@ function createTask() {
     const date = document.createElement("p");
     date.textContent = dueDate.toDateString();
 
-    taskItem.addEventListener("click", (e) => {
-        if (e.target.matches(".checkbox")) {
-            taskItem.classList.toggle("completed");
-        }
+    checkbox.addEventListener("click", () =>
+        taskItem.classList.toggle("completed")
+    );
+    editButton.addEventListener("click", () => {
+        description.readOnly = false;
+        description.focus();
+        description.selectionStart = description.value.length;
     });
 
     taskItem.appendChild(checkbox);
     taskItem.appendChild(description);
     taskItem.appendChild(date);
+    taskItem.appendChild(editButton);
+    taskItem.appendChild(removeButton);
 
     return taskItem;
 }
