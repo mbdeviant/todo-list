@@ -110,7 +110,7 @@ img {
 }
 
 .remove-button,
-.task-edit-button {
+.task-edit-button-preview {
     font-family: cursive;
     font-weight: 900;
     width: 24px;
@@ -122,7 +122,7 @@ img {
     transition: 0.1s;
 }
 .remove-button:hover,
-.task-edit-button:hover {
+.task-edit-button-preview:hover {
     background-color: rgba(0, 0, 0, 0.4);
 }
 .note-text {
@@ -164,23 +164,26 @@ img {
 }
 .task-form-container {
     max-width: 400px;
-    height: 200px;
+    height: 230px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 25px;
     margin: auto;
+    padding: 25px;
     position: absolute;
-    padding: 20px;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    gap: 22px;
     background-color: #6b6a68;
     border: transparent;
     border-radius: 12px;
     border: 4px solid red;
+}
+.task-form-container > h2 {
+    font-size: 30px;
 }
 #task-form {
     width: 100%;
@@ -194,7 +197,7 @@ img {
 
 #form-warning {
     position: absolute;
-    top: 210px;
+    top: 255px;
 }
 
 #task-item-container {
@@ -217,17 +220,29 @@ img {
 .task-desc:focus {
     outline: none;
 }
-.due-date-container {
+.due-date-container,
+.priority-container {
     display: flex;
     align-items: center;
+    height: 30px;
     justify-content: space-between;
 }
-.task-due-date {
+.task-due-date,
+#task-priority-dropdown {
     border: transparent;
     border-radius: 4px;
     height: 30px;
+    width: 100px;
 }
-.add-task-button {
+.task-due-date:focus,
+#task-priority-dropdown:focus {
+    outline: 1px solid black;
+}
+.edit-task-button {
+    display: none;
+}
+.add-task-button,
+.edit-task-button {
     border: transparent;
     align-self: center;
     border-radius: 4px;
@@ -243,15 +258,6 @@ img {
 }
 .task-desc-preview:hover {
     cursor: default;
-}
-.task-edit-button {
-    height: fit-content;
-    font-family: cursive;
-    font-weight: 900;
-    padding: 3px;
-    border-radius: 3px;
-    background-color: transparent;
-    border-color: transparent;
 }
 
 .completed {
