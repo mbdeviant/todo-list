@@ -18,7 +18,7 @@
         <div class="container">
             <div id="task-form-overlay">
                 <div class="task-form-container" id="task-form-container">
-                    <h2>Add a new task</h2>
+                    <h2 id="form-title">Add a new task</h2>
                     <form id="task-form">
                         <input
                             type="text"
@@ -34,9 +34,15 @@
                                 name="task-due-date"
                                 class="task-due-date"
                                 id="task-due-date"
-                                min="2023-01-01"
-                                max="2099-12-31"
                             />
+                        </div>
+                        <div class="priority-container">
+                            <p>Priority</p>
+                            <select name="priority" id="task-priority-dropdown">
+                                <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
                         </div>
                         <button
                             type="submit"
@@ -44,6 +50,13 @@
                             id="add-task-button"
                         >
                             Add
+                        </button>
+                        <button
+                            type="submit"
+                            class="edit-task-button"
+                            id="edit-task-button"
+                        >
+                            Save
                         </button>
                     </form>
                 </div>
