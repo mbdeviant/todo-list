@@ -11,10 +11,14 @@ export default function createTasksDisplay() {
 
 const Form = (() => {
     const formContainer = document.getElementById("task-form-container");
+    const formTitle = document.getElementById("form-title");
     const form = document.getElementById("task-form");
     const description = document.getElementById("task-desc");
     const date = document.getElementById("task-due-date");
     const formWarning = document.createElement("p");
+    const addTaskButton = document.getElementById("add-task-button");
+    const editTaskButton = document.getElementById("edit-task-button");
+
     formWarning.setAttribute("id", "form-warning");
     let empty = true;
 
@@ -28,10 +32,18 @@ const Form = (() => {
     });
 
     function reset() {
+        formTitle.textContent = "Add a new task";
+        editTaskButton.style.display = "none";
+        addTaskButton.style.display = "block";
         form.reset();
     }
     function focus() {
         description.focus();
+    }
+    function edit() {
+        formTitle.textContent = "Edit task";
+        editTaskButton.style.display = "block";
+        addTaskButton.style.display = "none";
     }
 
     function showWarning() {
@@ -49,7 +61,7 @@ const Form = (() => {
         return empty;
     }
 
-    return { reset, showWarning, isEmpty, removeWarning, focus };
+    return { reset, showWarning, isEmpty, removeWarning, focus, edit };
 })();
 const Overlay = (() => {
     const taskFormOverlay = document.getElementById("task-form-overlay");
@@ -73,6 +85,9 @@ function createTaskContainer() {
     const container = document.getElementById("content-container");
     const taskContainer = document.createElement("div");
     const addTaskButton = document.getElementById("add-task-button");
+    const editTaskButton = document.getElementById("edit-task-button");
+    let index;
+
     taskContainer.setAttribute("id", "task-item-container");
 
     const newTaskButton = document.createElement("button");
@@ -96,10 +111,33 @@ function createTaskContainer() {
         taskContainer.appendChild(task);
         Overlay.close();
     });
+    taskContainer.addEventListener("click", (e) => {
+        if (e.target.matches(".remove-button")) {
+            taskContainer.removeChild(e.target.parentNode);
+        }
+    });
+    taskContainer.addEventListener("click", (e) => {
+        if (e.target.matches(".task-edit-button-preview")) {
+            index = Array.from(taskContainer.children).indexOf(
+                e.target.parentNode // gets the index of clicked button's parent in container
+            );
+            console.log(index);
+            Overlay.show();
+            Form.reset();
+            Form.edit();
+        }
+    });
+    editTaskButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (Form.isEmpty()) {
+            Form.showWarning();
+            return;
+        }
+        const editedTask = createTask();
+        taskContainer.replaceChild(editedTask, taskContainer.childNodes[index]);
+        Overlay.close();
+    });
 
-    const text = document.createElement("p");
-    text.textContent = "i like potatoes";
-    taskContainer.appendChild(text);
     // load saved tasks here
     return taskContainer;
 }
@@ -112,15 +150,6 @@ function createTask() {
     checkbox.setAttribute("type", "checkbox");
     checkbox.classList.add("checkbox");
 
-    const editButton = document.createElement("button");
-    editButton.innerHTML = `&#9998;`;
-    editButton.classList.add("task-edit-button");
-
-    const removeButton = document.createElement("button");
-    removeButton.setAttribute("id", "remove-button");
-    removeButton.classList.add("remove-button");
-    removeButton.innerHTML = "X";
-
     const description = document.createElement("textarea");
     description.readOnly = true;
     description.classList.add("task-desc-preview");
@@ -131,18 +160,27 @@ function createTask() {
     const date = document.createElement("p");
     date.textContent = dueDate.toDateString();
 
+    const dropdown = document.getElementById("task-priority-dropdown").value;
+    const priority = document.createElement("p");
+    priority.textContent = `Priority: ${dropdown}`;
+
+    const editButton = document.createElement("button");
+    editButton.innerHTML = `&#9998;`;
+    editButton.classList.add("task-edit-button-preview");
+
+    const removeButton = document.createElement("button");
+    removeButton.setAttribute("id", "remove-button");
+    removeButton.classList.add("remove-button");
+    removeButton.innerHTML = "X";
+
     checkbox.addEventListener("click", () =>
         taskItem.classList.toggle("completed")
     );
-    editButton.addEventListener("click", () => {
-        description.readOnly = false;
-        description.focus();
-        description.selectionStart = description.value.length;
-    });
 
     taskItem.appendChild(checkbox);
     taskItem.appendChild(description);
     taskItem.appendChild(date);
+    taskItem.appendChild(priority);
     taskItem.appendChild(editButton);
     taskItem.appendChild(removeButton);
 
