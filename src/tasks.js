@@ -15,6 +15,7 @@ const Form = (() => {
     const form = document.getElementById("task-form");
     const description = document.getElementById("task-desc");
     const date = document.getElementById("task-due-date");
+    const priority = document.getElementById("task-priority-dropdown");
     const formWarning = document.createElement("p");
     const addTaskButton = document.getElementById("add-task-button");
     const editTaskButton = document.getElementById("edit-task-button");
@@ -61,7 +62,17 @@ const Form = (() => {
         return empty;
     }
 
-    return { reset, showWarning, isEmpty, removeWarning, focus, edit };
+    return {
+        reset,
+        showWarning,
+        isEmpty,
+        removeWarning,
+        focus,
+        edit,
+        description,
+        date,
+        priority,
+    };
 })();
 const Overlay = (() => {
     const taskFormOverlay = document.getElementById("task-form-overlay");
@@ -107,7 +118,14 @@ function createTaskContainer() {
             Form.showWarning();
             return;
         }
-        const task = createTask();
+        const task = createTask(Form.description.value, Form.date.value);
+        const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks.push({
+            desc: Form.description.value,
+            date: Form.date.value,
+            priority: Form.priority.value,
+        });
+        localStorage.setItem("tasks", JSON.stringify(tasks));
         taskContainer.appendChild(task);
         Overlay.close();
     });
@@ -115,8 +133,6 @@ function createTaskContainer() {
         if (e.target.matches(".remove-button")) {
             taskContainer.removeChild(e.target.parentNode);
         }
-    });
-    taskContainer.addEventListener("click", (e) => {
         if (e.target.matches(".task-edit-button-preview")) {
             index = Array.from(taskContainer.children).indexOf(
                 e.target.parentNode // gets the index of clicked button's parent in container
@@ -126,7 +142,13 @@ function createTaskContainer() {
             Form.reset();
             Form.edit();
         }
+        if (e.target.matches(".checkbox")) {
+            // on checkbox click event, change isChecked value of the item
+            // get the index same way in edit button
+            // or look what you did at notes.js
+        }
     });
+
     editTaskButton.addEventListener("click", (e) => {
         e.preventDefault();
         if (Form.isEmpty()) {
@@ -138,11 +160,20 @@ function createTaskContainer() {
         Overlay.close();
     });
 
-    // load saved tasks here
+    function loadSavedTasks() {
+        const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        // eslint-disable-next-line no-restricted-syntax
+        for (const task of tasks) {
+            const taskItem = createTask(task.desc, task.date);
+            taskContainer.appendChild(taskItem); // something wrong here
+        }
+        console.log(tasks);
+    }
+    loadSavedTasks();
     return taskContainer;
 }
 
-function createTask() {
+function createTask(desc, due) {
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
 
@@ -150,19 +181,17 @@ function createTask() {
     checkbox.setAttribute("type", "checkbox");
     checkbox.classList.add("checkbox");
 
-    const description = document.createElement("textarea");
-    description.readOnly = true;
+    const description = document.createElement("p");
     description.classList.add("task-desc-preview");
-    description.textContent = document.getElementById("task-desc").value;
+    description.textContent = desc;
 
-    const dateInput = document.getElementById("task-due-date").value;
-    const dueDate = new Date(dateInput);
+    const dateValue = new Date(due);
     const date = document.createElement("p");
-    date.textContent = dueDate.toDateString();
+    date.textContent = dateValue.toDateString();
 
-    const dropdown = document.getElementById("task-priority-dropdown").value;
+    const dropdownValue = Form.priority.value;
     const priority = document.createElement("p");
-    priority.textContent = `Priority: ${dropdown}`;
+    priority.textContent = `Priority: ${dropdownValue}`;
 
     const editButton = document.createElement("button");
     editButton.innerHTML = `&#9998;`;
