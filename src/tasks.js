@@ -167,7 +167,6 @@ function createTaskContainer() {
             const taskItem = createTask(task.desc, task.date);
             taskContainer.appendChild(taskItem); // something wrong here
         }
-        console.log(tasks);
     }
     loadSavedTasks();
     return taskContainer;
