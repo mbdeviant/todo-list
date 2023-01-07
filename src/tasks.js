@@ -3,7 +3,7 @@ export default function createTasksDisplay() {
     const tasksButton = document.getElementById("tasks-button");
 
     tasksButton.addEventListener("click", () => {
-        if (container.querySelector("#task-container")) return;
+        if (container.querySelector("#task-item-container")) return;
         removeAllChildNodes(container);
         container.appendChild(createTaskContainer());
     });
@@ -72,6 +72,8 @@ const Form = (() => {
         description,
         date,
         priority,
+        addTaskButton,
+        editTaskButton,
     };
 })();
 const Overlay = (() => {
@@ -93,13 +95,13 @@ const Overlay = (() => {
 })();
 
 function createTaskContainer() {
+    console.log("createTaskContainer called");
     const container = document.getElementById("content-container");
     const taskContainer = document.createElement("div");
     const addTaskButton = document.getElementById("add-task-button");
     const editTaskButton = document.getElementById("edit-task-button");
-    let index;
-
     taskContainer.setAttribute("id", "task-item-container");
+    let index;
 
     const newTaskButton = document.createElement("button");
     newTaskButton.textContent = "+New task";
@@ -107,18 +109,24 @@ function createTaskContainer() {
     container.appendChild(newTaskButton);
 
     newTaskButton.addEventListener("click", () => {
+        console.log("newtask called");
         Overlay.show();
         Form.reset();
         Form.removeWarning();
         Form.focus();
     });
     addTaskButton.addEventListener("click", (e) => {
+        console.log("addTaskButton click event called");
         e.preventDefault();
         if (Form.isEmpty()) {
             Form.showWarning();
             return;
         }
-        const task = createTask(Form.description.value, Form.date.value);
+        const task = createTask(
+            Form.description.value,
+            Form.date.value,
+            Form.priority.value
+        );
         const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
         tasks.push({
             desc: Form.description.value,
@@ -130,6 +138,7 @@ function createTaskContainer() {
         Overlay.close();
     });
     taskContainer.addEventListener("click", (e) => {
+        console.log("taskContainer click event  called");
         if (e.target.matches(".remove-button")) {
             taskContainer.removeChild(e.target.parentNode);
         }
@@ -155,24 +164,31 @@ function createTaskContainer() {
             Form.showWarning();
             return;
         }
+        console.log("editTaskButton click event called");
         const editedTask = createTask();
         taskContainer.replaceChild(editedTask, taskContainer.childNodes[index]);
         Overlay.close();
     });
 
     function loadSavedTasks() {
+        console.log("loadSavedTasks function called");
         const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
         // eslint-disable-next-line no-restricted-syntax
         for (const task of tasks) {
-            const taskItem = createTask(task.desc, task.date);
+            console.log("for loop in the loadSavedTasks function called");
+            const taskItem = createTask(task.desc, task.date, task.priority);
             taskContainer.appendChild(taskItem); // something wrong here
         }
     }
     loadSavedTasks();
     return taskContainer;
 }
+Form.addTaskButton.addEventListener("click", () => {
+    console.log("ğü");
+});
 
-function createTask(desc, due) {
+function createTask(desc, due, priorityValue) {
+    console.log("createTask called");
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
 
@@ -188,6 +204,7 @@ function createTask(desc, due) {
     const date = document.createElement("p");
     date.textContent = dateValue.toDateString();
 
+    Form.priority.value = priorityValue;
     const dropdownValue = Form.priority.value;
     const priority = document.createElement("p");
     priority.textContent = `Priority: ${dropdownValue}`;
