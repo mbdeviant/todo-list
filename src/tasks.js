@@ -9,6 +9,23 @@ export default function createTasksDisplay() {
     });
 }
 
+const Overlay = (() => {
+    const taskFormOverlay = document.getElementById("task-form-overlay");
+    taskFormOverlay.addEventListener("click", (e) => {
+        if (e.target === taskFormOverlay)
+            taskFormOverlay.style.display = "none";
+    });
+    function close() {
+        taskFormOverlay.style.display = "none";
+    }
+    function show() {
+        taskFormOverlay.style.display = "block";
+    }
+    return {
+        close,
+        show,
+    };
+})();
 const Form = (() => {
     const formContainer = document.getElementById("task-form-container");
     const formTitle = document.getElementById("form-title");
@@ -76,32 +93,12 @@ const Form = (() => {
         editTaskButton,
     };
 })();
-const Overlay = (() => {
-    const taskFormOverlay = document.getElementById("task-form-overlay");
-    taskFormOverlay.addEventListener("click", (e) => {
-        if (e.target === taskFormOverlay)
-            taskFormOverlay.style.display = "none";
-    });
-    function close() {
-        taskFormOverlay.style.display = "none";
-    }
-    function show() {
-        taskFormOverlay.style.display = "block";
-    }
-    return {
-        close,
-        show,
-    };
-})();
 
 function createTaskContainer() {
     console.log("createTaskContainer called");
     const container = document.getElementById("content-container");
-    const taskContainer = document.createElement("div");
-    const addTaskButton = document.getElementById("add-task-button");
-    const editTaskButton = document.getElementById("edit-task-button");
-    taskContainer.setAttribute("id", "task-item-container");
-    let index;
+    const taskItemContainer = document.createElement("div");
+    taskItemContainer.setAttribute("id", "task-item-container");
 
     const newTaskButton = document.createElement("button");
     newTaskButton.textContent = "+New task";
@@ -115,59 +112,22 @@ function createTaskContainer() {
         Form.removeWarning();
         Form.focus();
     });
-    addTaskButton.addEventListener("click", (e) => {
-        console.log("addTaskButton click event called");
-        e.preventDefault();
-        if (Form.isEmpty()) {
-            Form.showWarning();
-            return;
-        }
-        const task = createTask(
-            Form.description.value,
-            Form.date.value,
-            Form.priority.value
-        );
-        const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-        tasks.push({
-            desc: Form.description.value,
-            date: Form.date.value,
-            priority: Form.priority.value,
-        });
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-        taskContainer.appendChild(task);
-        Overlay.close();
-    });
-    taskContainer.addEventListener("click", (e) => {
-        console.log("taskContainer click event  called");
+
+    taskItemContainer.addEventListener("click", (e) => {
+        console.log("taskItemContainer click event  called");
         if (e.target.matches(".remove-button")) {
-            taskContainer.removeChild(e.target.parentNode);
+            taskItemContainer.removeChild(e.target.parentNode);
         }
         if (e.target.matches(".task-edit-button-preview")) {
-            index = Array.from(taskContainer.children).indexOf(
-                e.target.parentNode // gets the index of clicked button's parent in container
-            );
-            console.log(index);
             Overlay.show();
             Form.reset();
             Form.edit();
         }
         if (e.target.matches(".checkbox")) {
-            // on checkbox click event, change isChecked value of the item
-            // get the index same way in edit button
-            // or look what you did at notes.js
+            //  on checkbox click event, change isChecked value of the item
+            //  get the index same way in edit button
+            //  or look what you did at notes.js
         }
-    });
-
-    editTaskButton.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (Form.isEmpty()) {
-            Form.showWarning();
-            return;
-        }
-        console.log("editTaskButton click event called");
-        const editedTask = createTask();
-        taskContainer.replaceChild(editedTask, taskContainer.childNodes[index]);
-        Overlay.close();
     });
 
     function loadSavedTasks() {
@@ -177,14 +137,37 @@ function createTaskContainer() {
         for (const task of tasks) {
             console.log("for loop in the loadSavedTasks function called");
             const taskItem = createTask(task.desc, task.date, task.priority);
-            taskContainer.appendChild(taskItem); // something wrong here
+            taskItemContainer.appendChild(taskItem); // something wrong here
         }
     }
     loadSavedTasks();
-    return taskContainer;
+    return taskItemContainer;
 }
-Form.addTaskButton.addEventListener("click", () => {
-    console.log("ğü");
+Form.addTaskButton.addEventListener("click", (e) => {
+    const taskItemContainer = document.getElementById("task-item-container");
+    console.log("addTaskButton click event called");
+    e.preventDefault();
+    if (Form.isEmpty()) {
+        Form.showWarning();
+        return;
+    }
+    const task = createTask(
+        Form.description.value,
+        Form.date.value,
+        Form.priority.value
+    );
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks.push({
+        desc: Form.description.value,
+        date: Form.date.value,
+        priority: Form.priority.value,
+    });
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    taskItemContainer.appendChild(task);
+    Overlay.close();
+});
+Form.editTaskButton.addEventListener("click", (e) => {
+    e.preventDefault();
 });
 
 function createTask(desc, due, priorityValue) {
@@ -218,9 +201,9 @@ function createTask(desc, due, priorityValue) {
     removeButton.classList.add("remove-button");
     removeButton.innerHTML = "X";
 
-    checkbox.addEventListener("click", () =>
-        taskItem.classList.toggle("completed")
-    );
+    checkbox.addEventListener("click", () => {
+        taskItem.classList.toggle("completed");
+    });
 
     taskItem.appendChild(checkbox);
     taskItem.appendChild(description);
