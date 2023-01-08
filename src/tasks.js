@@ -35,7 +35,6 @@ const Form = (() => {
     const priority = document.getElementById("task-priority-dropdown");
     const formWarning = document.createElement("p");
     const addTaskButton = document.getElementById("add-task-button");
-    const editTaskButton = document.getElementById("edit-task-button");
 
     formWarning.setAttribute("id", "form-warning");
     let empty = true;
@@ -51,17 +50,11 @@ const Form = (() => {
 
     function reset() {
         formTitle.textContent = "Add a new task";
-        editTaskButton.style.display = "none";
         addTaskButton.style.display = "block";
         form.reset();
     }
     function focus() {
         description.focus();
-    }
-    function edit() {
-        formTitle.textContent = "Edit task";
-        editTaskButton.style.display = "block";
-        addTaskButton.style.display = "none";
     }
 
     function showWarning() {
@@ -85,12 +78,10 @@ const Form = (() => {
         isEmpty,
         removeWarning,
         focus,
-        edit,
         description,
         date,
         priority,
         addTaskButton,
-        editTaskButton,
     };
 })();
 
@@ -117,11 +108,6 @@ function createTaskContainer() {
         console.log("taskItemContainer click event  called");
         if (e.target.matches(".remove-button")) {
             taskItemContainer.removeChild(e.target.parentNode);
-        }
-        if (e.target.matches(".task-edit-button-preview")) {
-            Overlay.show();
-            Form.reset();
-            Form.edit();
         }
         if (e.target.matches(".checkbox")) {
             //  on checkbox click event, change isChecked value of the item
@@ -166,9 +152,6 @@ Form.addTaskButton.addEventListener("click", (e) => {
     taskItemContainer.appendChild(task);
     Overlay.close();
 });
-Form.editTaskButton.addEventListener("click", (e) => {
-    e.preventDefault();
-});
 
 function createTask(desc, due, priorityValue) {
     console.log("createTask called");
@@ -192,10 +175,6 @@ function createTask(desc, due, priorityValue) {
     const priority = document.createElement("p");
     priority.textContent = `Priority: ${dropdownValue}`;
 
-    const editButton = document.createElement("button");
-    editButton.innerHTML = `&#9998;`;
-    editButton.classList.add("task-edit-button-preview");
-
     const removeButton = document.createElement("button");
     removeButton.setAttribute("id", "remove-button");
     removeButton.classList.add("remove-button");
@@ -209,7 +188,7 @@ function createTask(desc, due, priorityValue) {
     taskItem.appendChild(description);
     taskItem.appendChild(date);
     taskItem.appendChild(priority);
-    taskItem.appendChild(editButton);
+
     taskItem.appendChild(removeButton);
 
     return taskItem;
