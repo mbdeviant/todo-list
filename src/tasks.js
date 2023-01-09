@@ -104,10 +104,12 @@ function createTaskContainer() {
     taskItemContainer.addEventListener("click", (e) => {
         const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
         const index = Array.from(taskItemContainer.childNodes).indexOf(
-            e.target.parentNode
+            e.target.parentNode.parentNode.parentNode
         );
         if (e.target.matches(".remove-button")) {
-            taskItemContainer.removeChild(e.target.parentNode);
+            taskItemContainer.removeChild(
+                e.target.parentNode.parentNode.parentNode
+            );
             tasks.splice(index, 1);
         }
         if (e.target.matches(".checkbox")) {
@@ -126,7 +128,7 @@ function createTaskContainer() {
                 task.priority,
                 task.check
             );
-            if (task.check) taskItem.classList.add("completed");
+
             taskItemContainer.appendChild(taskItem);
         }
     }
@@ -151,7 +153,6 @@ Form.addTaskButton.addEventListener("click", (e) => {
         checkInit
     );
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
     tasks.push({
         desc: Form.description.value,
         date: Form.date.value,
@@ -167,6 +168,12 @@ Form.addTaskButton.addEventListener("click", (e) => {
 function createTask(desc, due, priorityValue, check) {
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
+    const taskInfo = document.createElement("div");
+    taskInfo.classList.add("task-info");
+    const right = document.createElement("div");
+    right.classList.add("right");
+    const left = document.createElement("div");
+    left.classList.add("left");
 
     const checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
@@ -202,14 +209,25 @@ function createTask(desc, due, priorityValue, check) {
     removeButton.innerHTML = "X";
 
     checkbox.addEventListener("click", () => {
+        left.classList.add("completed");
+        right.classList.add("completed");
         taskItem.classList.toggle("completed");
+        taskInfo.classList.toggle("completed");
     });
-
-    taskItem.appendChild(checkbox);
-    taskItem.appendChild(description);
-    taskItem.appendChild(date);
-    taskItem.appendChild(priority);
-    taskItem.appendChild(removeButton);
+    if (check) {
+        left.classList.add("completed");
+        right.classList.add("completed");
+        taskItem.classList.add("completed");
+        taskInfo.classList.add("completed");
+    }
+    left.appendChild(checkbox);
+    left.appendChild(description);
+    right.appendChild(date);
+    right.appendChild(priority);
+    right.appendChild(removeButton);
+    taskInfo.appendChild(left);
+    taskInfo.appendChild(right);
+    taskItem.appendChild(taskInfo);
 
     return taskItem;
 }
