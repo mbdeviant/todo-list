@@ -170,7 +170,7 @@ function createTask(desc, due, priorityValue, check) {
 
     const checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
-    checkbox.classList.add("task-checkbox-preview");
+    checkbox.classList.add("checkbox");
     checkbox.checked = check;
 
     const description = document.createElement("p");
@@ -178,10 +178,15 @@ function createTask(desc, due, priorityValue, check) {
     description.textContent = desc;
 
     const dateValue = new Date(due);
+    const yyyy = dateValue.getFullYear();
+    let mm = dateValue.getMonth() + 1;
+    let dd = dateValue.getDate();
+    if (dd < 10) dd = `0${dd}`;
+    if (mm < 10) mm = `0${mm}`;
+    const formattedDate = `Due Date: ${dd}/${mm}/${yyyy}`;
     const date = document.createElement("p");
     date.classList.add("task-date-preview");
-
-    date.textContent = dateValue.toDateString();
+    date.textContent = formattedDate;
 
     const priority = document.createElement("p");
     priority.classList.add("task-priority-preview");
