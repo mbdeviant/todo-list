@@ -209,8 +209,8 @@ function createTask(desc, due, priorityValue, check) {
     removeButton.innerHTML = "X";
 
     checkbox.addEventListener("click", () => {
-        left.classList.add("completed");
-        right.classList.add("completed");
+        left.classList.toggle("completed");
+        right.classList.toggle("completed");
         taskItem.classList.toggle("completed");
         taskInfo.classList.toggle("completed");
     });
