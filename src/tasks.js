@@ -71,7 +71,6 @@ const Form = (() => {
         if (description.value !== "" && date.value !== "") empty = false;
         return empty;
     }
-
     return {
         reset,
         showWarning,
@@ -105,62 +104,78 @@ function createTaskContainer() {
     });
 
     taskItemContainer.addEventListener("click", (e) => {
-        console.log("taskItemContainer click event  called");
+        const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        const index = Array.from(taskItemContainer.childNodes).indexOf(
+            e.target.parentNode
+        );
         if (e.target.matches(".remove-button")) {
             taskItemContainer.removeChild(e.target.parentNode);
         }
         if (e.target.matches(".checkbox")) {
-            //  on checkbox click event, change isChecked value of the item
-            //  get the index same way in edit button
-            //  or look what you did at notes.js
+            tasks[index].check = !tasks[index].check;
+            localStorage.setItem("tasks", JSON.stringify(tasks));
         }
     });
 
     function loadSavedTasks() {
-        console.log("loadSavedTasks function called");
         const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
         // eslint-disable-next-line no-restricted-syntax
         for (const task of tasks) {
-            console.log("for loop in the loadSavedTasks function called");
-            const taskItem = createTask(task.desc, task.date, task.priority);
-            taskItemContainer.appendChild(taskItem); // something wrong here
+            const taskItem = createTask(
+                task.desc,
+                task.date,
+                task.priority,
+                task.check
+            );
+            if (task.check) taskItem.classList.add("completed");
+            taskItemContainer.appendChild(taskItem);
         }
     }
+
     loadSavedTasks();
     return taskItemContainer;
 }
+
 Form.addTaskButton.addEventListener("click", (e) => {
     const taskItemContainer = document.getElementById("task-item-container");
-    console.log("addTaskButton click event called");
     e.preventDefault();
+
     if (Form.isEmpty()) {
         Form.showWarning();
         return;
     }
+    const checkInit = false;
     const task = createTask(
         Form.description.value,
         Form.date.value,
-        Form.priority.value
+        Form.priority.value,
+        checkInit
     );
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
     tasks.push({
         desc: Form.description.value,
         date: Form.date.value,
         priority: Form.priority.value,
+        check: checkInit,
     });
+
     localStorage.setItem("tasks", JSON.stringify(tasks));
     taskItemContainer.appendChild(task);
     Overlay.close();
 });
 
-function createTask(desc, due, priorityValue) {
+function createTask(desc, due, priorityValue, check) {
     console.log("createTask called");
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
 
     const checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
+    checkbox.setAttribute("id", "checkbox");
     checkbox.classList.add("checkbox");
+    checkbox.checked = check;
+    console.log(check);
 
     const description = document.createElement("p");
     description.classList.add("task-desc-preview");
