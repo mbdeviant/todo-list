@@ -170,8 +170,7 @@ function createTask(desc, due, priorityValue, check) {
 
     const checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
-    checkbox.setAttribute("id", "checkbox");
-    checkbox.classList.add("checkbox");
+    checkbox.classList.add("task-checkbox-preview");
     checkbox.checked = check;
 
     const description = document.createElement("p");
@@ -180,12 +179,17 @@ function createTask(desc, due, priorityValue, check) {
 
     const dateValue = new Date(due);
     const date = document.createElement("p");
+    date.classList.add("task-date-preview");
+
     date.textContent = dateValue.toDateString();
 
-    Form.priority.value = priorityValue;
-    const dropdownValue = Form.priority.value;
     const priority = document.createElement("p");
-    priority.textContent = `Priority: ${dropdownValue}`;
+    priority.classList.add("task-priority-preview");
+    priority.textContent = `Priority: ${priorityValue}`;
+
+    if (priorityValue === "High") priority.style.color = "maroon";
+    if (priorityValue === "Medium") priority.style.color = "orange";
+    if (priorityValue === "Low") priority.style.color = "green";
 
     const removeButton = document.createElement("button");
     removeButton.setAttribute("id", "remove-button");
