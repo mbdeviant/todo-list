@@ -108,11 +108,12 @@ function createTaskContainer() {
         );
         if (e.target.matches(".remove-button")) {
             taskItemContainer.removeChild(e.target.parentNode);
+            tasks.splice(index, 1);
         }
         if (e.target.matches(".checkbox")) {
             tasks[index].check = !tasks[index].check;
-            localStorage.setItem("tasks", JSON.stringify(tasks));
         }
+        localStorage.setItem("tasks", JSON.stringify(tasks));
     });
 
     function loadSavedTasks() {
@@ -199,7 +200,6 @@ function createTask(desc, due, priorityValue, check) {
     taskItem.appendChild(description);
     taskItem.appendChild(date);
     taskItem.appendChild(priority);
-
     taskItem.appendChild(removeButton);
 
     return taskItem;
