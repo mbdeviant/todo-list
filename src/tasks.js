@@ -85,7 +85,6 @@ const Form = (() => {
 })();
 
 function createTaskContainer() {
-    console.log("createTaskContainer called");
     const container = document.getElementById("content-container");
     const taskItemContainer = document.createElement("div");
     taskItemContainer.setAttribute("id", "task-item-container");
@@ -96,7 +95,6 @@ function createTaskContainer() {
     container.appendChild(newTaskButton);
 
     newTaskButton.addEventListener("click", () => {
-        console.log("newtask called");
         Overlay.show();
         Form.reset();
         Form.removeWarning();
@@ -166,7 +164,6 @@ Form.addTaskButton.addEventListener("click", (e) => {
 });
 
 function createTask(desc, due, priorityValue, check) {
-    console.log("createTask called");
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
 
@@ -175,7 +172,6 @@ function createTask(desc, due, priorityValue, check) {
     checkbox.setAttribute("id", "checkbox");
     checkbox.classList.add("checkbox");
     checkbox.checked = check;
-    console.log(check);
 
     const description = document.createElement("p");
     description.classList.add("task-desc-preview");
