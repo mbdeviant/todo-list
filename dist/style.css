@@ -41,7 +41,7 @@ h1 {
 .nav {
     display: flex;
     flex-direction: column;
-    min-width: 200px;
+    width: 250px;
     padding-left: 25px;
     padding-top: 14px;
     background-color: rgb(155, 153, 153);
@@ -82,6 +82,8 @@ img {
 }
 #task-item-container {
     display: flex;
+    gap: 8px;
+    padding-bottom: 8px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -241,6 +243,7 @@ img {
 }
 
 .task-item {
+    background-color: gray;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -261,13 +264,13 @@ img {
 .right {
     display: flex;
     align-items: center;
-    width: 250px;
     gap: 20px;
 }
 .left {
     width: 400px;
 }
 .right {
+    width: 250px;
     justify-content: space-between;
 }
 
@@ -303,29 +306,44 @@ img {
         display: none;
     }
 
-    #content-container,
-    #task-item-container,
-    .task-item,
+    #content-container {
+        padding: 0;
+        width: 100%;
+        align-items: center;
+    }
+    #task-item-container {
+        width: 100%;
+        padding-top: 4px;
+    }
+
+    .task-item {
+        width: 100%;
+        padding: 10px;
+    }
     .task-info {
         width: 95%;
+        padding: 0px;
     }
 
     .task-desc-preview {
         min-width: 150px;
-        overflow: auto;
     }
     .task-desc-preview,
     .task-date-preview,
     .task-priority-preview {
-        font-size: 14px;
+        font-size: 16px;
     }
-    .left,
+    .task-date-preview {
+        min-width: 72px;
+    }
+    .left {
+        width: 200px;
+    }
     .right {
-        width: auto;
+        width: 200px;
+        gap: 2px;
     }
-    .task-info {
-        gap: 12px;
-    }
+
     #note-container {
         display: flex;
         flex-direction: column;
