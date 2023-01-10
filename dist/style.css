@@ -11,7 +11,8 @@ html {
 .header {
     display: flex;
     align-items: center;
-    padding: 25px;
+    padding: 25px 25px 25px 40px;
+
     color: #eeeeee;
     background-color: gray;
 }
@@ -41,13 +42,16 @@ h1 {
 .nav {
     display: flex;
     flex-direction: column;
-    min-width: 220px;
-    padding-left: 25px;
+    align-items: center;
+    gap: 1px;
+    min-width: 300px;
     padding-top: 14px;
     background-color: rgb(155, 153, 153);
 }
 nav > button {
-    width: 50%;
+    font-size: 20px;
+    width: 70%;
+    padding: 4px;
 }
 button:hover {
     cursor: pointer;
@@ -248,16 +252,16 @@ img {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    min-width: 60%;
+    width: 80%;
+    padding: 30px 20px;
     height: auto;
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
         rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
 .task-info {
-    width: 100%;
-    gap: 50px;
-    padding: 20px 20px;
+    /* width: 100%; */
+    /* gap: 50px; */
     display: flex;
     justify-content: space-between;
 }
@@ -266,13 +270,13 @@ img {
 .right {
     display: flex;
     align-items: center;
-    gap: 20px;
+    /* gap: 20px; */
 }
 .left {
-    width: 400px;
+    /* width: 400px; */
 }
 .right {
-    width: 250px;
+    /* width: 250px; */
     justify-content: space-between;
 }
 
@@ -292,11 +296,11 @@ img {
 }
 .task-desc-preview {
     font-size: 20px;
-    min-width: 400px;
+    /* min-width: 400px; */
     overflow: auto;
 }
 .task-priority-preview {
-    min-width: 85px;
+    /* min-width: 85px; */
 }
 
 @media (max-width: 700px) {
