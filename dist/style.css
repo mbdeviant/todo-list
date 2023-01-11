@@ -12,9 +12,8 @@ html {
     display: flex;
     align-items: center;
     padding: 25px 25px 25px 40px;
-
     color: #eeeeee;
-    background-color: gray;
+    background-color: rgb(155, 153, 153);
 }
 h1 {
     font-size: 40px;
@@ -43,20 +42,23 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
     min-width: 300px;
-    padding-top: 14px;
+    gap: 1px;
+    padding-top: 18px;
     background-color: rgb(155, 153, 153);
 }
 nav > button {
     font-size: 17px;
     width: 70%;
-    border: transparent;
+    border: 1px;
     border-radius: 2px;
     padding: 4px 2px;
+    background-color: rgba(0, 0, 0, 0.1);
 }
+
 button:hover {
     cursor: pointer;
+    background-color: gold;
 }
 .footer {
     left: 0;
@@ -89,14 +91,15 @@ img {
 #task-item-container {
     display: flex;
     gap: 16px;
-    padding: 8px 0px;
+    padding: 8px 0px 0px 0px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
 .new-note-button,
-.new-task-button {
+.new-task-button,
+.new-project-button {
     align-self: center;
     font-size: 24px;
     margin-top: 14px;
@@ -110,7 +113,8 @@ img {
     user-select: none;
 }
 .new-note-button:hover,
-.new-task-button:hover {
+.new-task-button:hover,
+.new-project-button:hover {
     background-color: rgba(0, 0, 0, 0.4);
 }
 .note-item {
@@ -129,6 +133,7 @@ img {
     width: fit-content;
     height: fit-content;
     padding: 2px;
+    margin-left: 1px;
     border-radius: 3px;
     background-color: transparent;
     border-color: transparent;
@@ -249,7 +254,7 @@ img {
 }
 
 .task-item {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -263,44 +268,48 @@ img {
 }
 
 .task-info {
-    /* width: 100%; */
-    /* gap: 50px; */
-    display: flex;
-    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+    display: grid; /* Change the layout to a grid */
+    grid-template-columns: 3fr 1fr; /* Define two columns, the first one taking 1 fraction of the available space, and the second one taking 3 fractions */
+    grid-template-rows: auto; /* Define a single row, with the height determined by the content */
+    align-items: center; /* Align the elements in the grid cells vertically */
 }
 
 .left,
 .right {
     display: flex;
     align-items: center;
-    /* gap: 20px; */
+    gap: 5px;
 }
 .left {
-    /* width: 400px; */
+    /* width: 60%; */
+    grid-column: 1 / 2; /* Place the left section in the first column */
+    align-self: center; /* Align the left section within its grid cell */
 }
 .right {
-    /* width: 250px; */
+    /* width: 40%; */
+    grid-column: 2 / 3; /* Place the right section in the second column */
+    align-self: center; /* Align the right section within its grid cell */
     justify-content: space-between;
 }
 
 .completed {
     background-color: gray;
 }
-.completed > p,
-.completed > textarea {
+.completed > p {
     text-decoration: line-through;
 }
 
 .task-desc-preview,
 .task-date-preview,
 .task-priority-preview {
-    font-size: 18px;
+    font-size: 16px;
     cursor: default;
 }
 .task-desc-preview {
     font-size: 20px;
-    /* min-width: 400px; */
-    overflow: auto;
+    width: 80%;
 }
 .task-priority-preview {
     /* min-width: 85px; */
