@@ -63,10 +63,6 @@ Project.saveButton.addEventListener("click", () => {
     container.removeChild(Project.newItem);
     Project.titlePreview.value = "";
 });
-// Project.cancelButton.addEventListener("click", () => {
-//     const container = document.getElementById("project-container");
-//     container.removeChild(Project.newItem);
-// });
 
 function createProject(title) {
     const projectItem = document.createElement("div");
