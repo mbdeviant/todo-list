@@ -9,6 +9,21 @@ export default function createProjectDisplay() {
         container.appendChild(createProjectContainer());
     });
 }
+
+const Project = (() => {
+    const newItem = document.createElement("div");
+    const projectTitle = document.createElement("textarea");
+    const saveButton = document.createElement("button");
+    saveButton.textContent = "Save";
+    const cancelButton = document.createElement("button");
+    cancelButton.textContent = "Cancel";
+    newItem.appendChild(projectTitle);
+    newItem.appendChild(saveButton);
+    newItem.appendChild(cancelButton);
+
+    return { newItem, saveButton };
+})();
+
 function createProjectContainer() {
     const container = document.getElementById("content-container");
     const projectContainer = document.createElement("div");
@@ -20,9 +35,7 @@ function createProjectContainer() {
     container.appendChild(newProjectButton);
 
     newProjectButton.addEventListener("click", () => {
-        const project = createProject();
-
-        projectContainer.appendChild(project);
+        projectContainer.appendChild(Project.newItem);
     });
 
     return projectContainer;
