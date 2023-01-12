@@ -12,16 +12,25 @@ export default function createProjectDisplay() {
 
 const Project = (() => {
     const newItem = document.createElement("div");
-    const projectTitle = document.createElement("textarea");
+    newItem.classList.add("new-item-display");
+
+    const titlePreview = document.createElement("input");
+    titlePreview.classList.add("new-project-title");
+    titlePreview.placeholder = "Give a name to your project.";
+
     const saveButton = document.createElement("button");
     saveButton.textContent = "Save";
+    saveButton.classList.add("project-button");
+
     const cancelButton = document.createElement("button");
     cancelButton.textContent = "Cancel";
-    newItem.appendChild(projectTitle);
+    cancelButton.classList.add("project-button");
+
+    newItem.appendChild(titlePreview);
     newItem.appendChild(saveButton);
     newItem.appendChild(cancelButton);
 
-    return { newItem, saveButton };
+    return { newItem, titlePreview, saveButton, cancelButton };
 })();
 
 function createProjectContainer() {
@@ -34,20 +43,38 @@ function createProjectContainer() {
     newProjectButton.classList.add("new-project-button");
     container.appendChild(newProjectButton);
 
+    projectContainer.addEventListener("click", (e) => {
+        if (e.target !== Project.titlePreview) {
+            projectContainer.removeChild(Project.newItem);
+            Project.titlePreview.value = "";
+        }
+    });
     newProjectButton.addEventListener("click", () => {
         projectContainer.appendChild(Project.newItem);
     });
 
     return projectContainer;
 }
+Project.saveButton.addEventListener("click", () => {
+    const container = document.getElementById("project-container");
+    if (Project.titlePreview.value === "") return;
+    const project = createProject(Project.titlePreview.value);
+    container.appendChild(project);
+    container.removeChild(Project.newItem);
+    Project.titlePreview.value = "";
+});
+// Project.cancelButton.addEventListener("click", () => {
+//     const container = document.getElementById("project-container");
+//     container.removeChild(Project.newItem);
+// });
 
-function createProject() {
+function createProject(title) {
     const projectItem = document.createElement("div");
     projectItem.classList.add("project-item");
 
     const projectTitle = document.createElement("textarea");
     projectItem.classList.add("project-title");
-    projectTitle.placeholder = "Enter project title here";
+    projectTitle.textContent = title;
     projectItem.contentEditable = true;
 
     projectItem.appendChild(projectTitle);
