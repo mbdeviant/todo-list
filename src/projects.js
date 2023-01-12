@@ -18,6 +18,28 @@ function createProjectContainer() {
     newProjectButton.textContent = "+New project";
     newProjectButton.classList.add("new-project-button");
     container.appendChild(newProjectButton);
+
+    newProjectButton.addEventListener("click", () => {
+        const project = createProject();
+
+        projectContainer.appendChild(project);
+    });
+
+    return projectContainer;
+}
+
+function createProject() {
+    const projectItem = document.createElement("div");
+    projectItem.classList.add("project-item");
+
+    const projectTitle = document.createElement("textarea");
+    projectItem.classList.add("project-title");
+    projectTitle.placeholder = "Enter project title here";
+    projectItem.contentEditable = true;
+
+    projectItem.appendChild(projectTitle);
+
+    return projectItem;
 }
 
 function removeAllChildNodes(parent) {
