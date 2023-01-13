@@ -26,11 +26,27 @@ const Project = (() => {
     cancelButton.textContent = "Cancel";
     cancelButton.classList.add("project-button");
 
+    titlePreview.addEventListener("input", () => {
+        titlePreview.style.borderColor = "black";
+    });
+
+    function isEmpty() {
+        const empty = titlePreview.value === "";
+        titlePreview.style.borderColor = "red";
+        titlePreview.placeholder = "Title can't be empty.";
+        return empty;
+    }
+    function reset() {
+        Project.titlePreview.value = "";
+        titlePreview.style.borderColor = "black";
+        titlePreview.placeholder = "Give a name to your project.";
+    }
+
     newItem.appendChild(titlePreview);
     newItem.appendChild(saveButton);
     newItem.appendChild(cancelButton);
 
-    return { newItem, titlePreview, saveButton, cancelButton };
+    return { newItem, titlePreview, saveButton, cancelButton, isEmpty, reset };
 })();
 
 function createProjectContainer() {
@@ -43,25 +59,24 @@ function createProjectContainer() {
     newProjectButton.classList.add("new-project-button");
     container.appendChild(newProjectButton);
 
-    projectContainer.addEventListener("click", (e) => {
-        if (e.target !== Project.titlePreview) {
-            projectContainer.removeChild(Project.newItem);
-            Project.titlePreview.value = "";
-        }
-    });
     newProjectButton.addEventListener("click", () => {
         projectContainer.appendChild(Project.newItem);
+    });
+    Project.cancelButton.addEventListener("click", () => {
+        projectContainer.removeChild(Project.newItem);
+        Project.reset();
     });
 
     return projectContainer;
 }
 Project.saveButton.addEventListener("click", () => {
     const container = document.getElementById("project-container");
-    if (Project.titlePreview.value === "") return;
+    console.log(Project.isEmpty());
+    if (Project.isEmpty()) return;
     const project = createProject(Project.titlePreview.value);
     container.appendChild(project);
     container.removeChild(Project.newItem);
-    Project.titlePreview.value = "";
+    Project.reset();
 });
 
 function createProject(title) {
