@@ -28,16 +28,17 @@ const Project = (() => {
 
     titlePreview.addEventListener("input", () => {
         titlePreview.style.borderColor = "black";
+        titlePreview.placeholder = "Give a name to your project.";
     });
 
     function isEmpty() {
-        const empty = titlePreview.value === "";
+        const empty = titlePreview.value.trim() === "";
         titlePreview.style.borderColor = "red";
         titlePreview.placeholder = "Title can't be empty.";
         return empty;
     }
     function reset() {
-        Project.titlePreview.value = "";
+        titlePreview.value = "";
         titlePreview.style.borderColor = "black";
         titlePreview.placeholder = "Give a name to your project.";
     }
@@ -61,21 +62,38 @@ function createProjectContainer() {
 
     newProjectButton.addEventListener("click", () => {
         projectContainer.appendChild(Project.newItem);
+        console.log(projectContainer.childNodes);
     });
-    Project.cancelButton.addEventListener("click", () => {
-        projectContainer.removeChild(Project.newItem);
-        Project.reset();
+
+    projectContainer.addEventListener("click", (e) => {
+        const index = Array.from(projectContainer.childNodes).indexOf(
+            e.target.parentNode
+        );
+
+        if (e.target.matches(".remove-button")) {
+            projectContainer.removeChild(e.target.parentNode.parentNode);
+        }
+        console.log(index);
     });
 
     return projectContainer;
 }
+
 Project.saveButton.addEventListener("click", () => {
     const container = document.getElementById("project-container");
     console.log(Project.isEmpty());
     if (Project.isEmpty()) return;
-    const project = createProject(Project.titlePreview.value);
+    const project = createProject(Project.titlePreview.value.trim());
     container.appendChild(project);
     container.removeChild(Project.newItem);
+    Project.reset();
+});
+Project.cancelButton.addEventListener("click", () => {
+    const container = document.getElementById("project-container");
+
+    container.removeChild(Project.newItem);
+    console.log(container.childNodes);
+
     Project.reset();
 });
 
@@ -83,14 +101,33 @@ function createProject(title) {
     const projectItem = document.createElement("div");
     projectItem.classList.add("project-item");
 
-    const projectTitle = document.createElement("textarea");
+    const projectItemHeader = document.createElement("div");
+    projectItemHeader.classList.add("project-item-header");
+
+    const projectTitle = document.createElement("p");
     projectItem.classList.add("project-title");
     projectTitle.textContent = title;
-    projectItem.contentEditable = true;
 
-    projectItem.appendChild(projectTitle);
+    const removeButton = document.createElement("button");
+    removeButton.setAttribute("id", "remove-button");
+    removeButton.classList.add("remove-button");
+    removeButton.innerHTML = "X";
+
+    projectItemHeader.appendChild(projectTitle);
+    projectItemHeader.appendChild(removeButton);
+    projectItem.appendChild(projectItemHeader);
+    projectItem.appendChild(expandMenu());
 
     return projectItem;
+}
+function expandMenu() {
+    const menuContainer = document.createElement("div");
+    menuContainer.classList.add("expand-menu-container");
+    const test = document.createElement("button");
+    test.textContent = "+Add task";
+    menuContainer.appendChild(test);
+
+    return menuContainer;
 }
 
 function removeAllChildNodes(parent) {
