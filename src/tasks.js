@@ -28,7 +28,6 @@ const Overlay = (() => {
 })();
 const Form = (() => {
     const formContainer = document.getElementById("task-form-container");
-    const formTitle = document.getElementById("form-title");
     const form = document.getElementById("task-form");
     const description = document.getElementById("task-desc");
     const date = document.getElementById("task-due-date");
@@ -49,8 +48,6 @@ const Form = (() => {
     });
 
     function reset() {
-        formTitle.textContent = "Add a new task";
-        addTaskButton.style.display = "block";
         form.reset();
     }
     function focus() {
