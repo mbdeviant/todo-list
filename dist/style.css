@@ -267,35 +267,7 @@ img {
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
         rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
-.project-item {
-    width: 80%;
-    padding: 5px 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 4px;
-    background-color: gold;
-}
-.project-item-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.project-item-header > p:hover {
-    cursor: pointer;
-}
-.expand-menu-container {
-    display: none;
-    background-color: red;
-    width: 100%;
-}
-.hidden {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+
 .task-info {
     width: 100%;
     gap: 20px;
@@ -365,9 +337,49 @@ img {
     grid-row: 2;
     height: 30px;
 }
-.project-detail-button {
-    background: transparent;
-    border: transparent;
+.project-item {
+    width: 80%;
+    padding: 5px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+}
+.project-item-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid black;
+}
+.project-item-header > p:hover {
+    cursor: pointer;
+}
+.expand-menu-container {
+    display: none;
+    background-color: red;
+    width: 100%;
+}
+
+.hidden {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.expand-menu-top {
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+}
+.project-task-container {
+    display: flex;
+    justify-content: space-between;
+}
+.project-task-title {
+    width: 45%;
+    overflow: auto;
+    background-color: springgreen;
 }
 
 @media (max-width: 700px) {
