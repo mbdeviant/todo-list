@@ -287,8 +287,14 @@ img {
     cursor: pointer;
 }
 .expand-menu-container {
+    display: none;
     background-color: red;
-    align-self: center;
+    width: 100%;
+}
+.hidden {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .task-info {
     width: 100%;
