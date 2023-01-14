@@ -62,6 +62,7 @@ function createProjectContainer() {
 
     newProjectButton.addEventListener("click", () => {
         projectContainer.appendChild(Project.newItem);
+        Project.titlePreview.focus();
         console.log(projectContainer.childNodes);
     });
 
@@ -109,7 +110,8 @@ function createProject(title) {
     const projectTitle = document.createElement("p");
     projectItem.classList.add("project-title");
     projectTitle.textContent = title;
-    projectTitle.addEventListener("click", () => {
+
+    projectItemHeader.addEventListener("click", () => {
         itemExpandMenu.classList.toggle("hidden");
     });
 
@@ -133,26 +135,36 @@ function expandMenu() {
     menuTop.classList.add("expand-menu-top");
 
     const addTaskButton = document.createElement("button");
-    addTaskButton.textContent = "+Add Task";
+    addTaskButton.classList.add("expand-menu-add-button");
+    addTaskButton.textContent = "+Add task to project";
 
     addTaskButton.addEventListener("click", () => {
         const taskContainer = document.createElement("div");
         taskContainer.classList.add("project-task-container");
 
+        const left = document.createElement("div");
+        left.classList.add("task-container-left");
+        const mark = document.createElement("p");
+        mark.textContent = "●";
         const task = document.createElement("p");
         task.classList.add("project-task-title");
         task.contentEditable = "true";
+        task.spellcheck = false;
         task.placeholder = "Enter task title here";
 
         const removeTaskButton = document.createElement("button");
-        removeTaskButton.textContent = "X";
+        removeTaskButton.classList.add("project-task-remove-button");
+        removeTaskButton.textContent = "x";
 
-        taskContainer.appendChild(task);
+        left.appendChild(mark);
+        left.appendChild(task);
+        taskContainer.appendChild(left);
         taskContainer.appendChild(removeTaskButton);
         menuContainer.appendChild(taskContainer);
+        task.focus();
 
         removeTaskButton.addEventListener("click", () => {
-            taskContainer.removeChild(task);
+            taskContainer.removeChild(left);
             taskContainer.removeChild(removeTaskButton);
             menuContainer.removeChild(taskContainer);
         });
