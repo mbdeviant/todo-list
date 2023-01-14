@@ -68,10 +68,10 @@ function createProjectContainer() {
         const index = Array.from(projectContainer.childNodes).indexOf(
             e.target.parentNode
         );
-
         if (e.target.matches(".remove-button")) {
             projectContainer.removeChild(e.target.parentNode.parentNode);
         }
+        console.log(index);
     });
 
     return projectContainer;
@@ -79,8 +79,8 @@ function createProjectContainer() {
 
 Project.saveButton.addEventListener("click", () => {
     const container = document.getElementById("project-container");
-    if (Project.isEmpty()) return;
 
+    if (Project.isEmpty()) return;
     const project = createProject(Project.titlePreview.value.trim());
 
     container.appendChild(project);
@@ -89,9 +89,7 @@ Project.saveButton.addEventListener("click", () => {
 });
 Project.cancelButton.addEventListener("click", () => {
     const container = document.getElementById("project-container");
-
     container.removeChild(Project.newItem);
-
     Project.reset();
 });
 
