@@ -132,15 +132,32 @@ function expandMenu() {
     const menuTop = document.createElement("div");
     menuTop.classList.add("expand-menu-top");
 
-    const projectTaskButton = document.createElement("button");
-    projectTaskButton.textContent = "+Add Task";
+    const addTaskButton = document.createElement("button");
+    addTaskButton.textContent = "+Add Task";
 
-    projectTaskButton.addEventListener("click", () => {
+    addTaskButton.addEventListener("click", () => {
+        const taskContainer = document.createElement("div");
+        taskContainer.classList.add("project-task-container");
+
         const task = document.createElement("p");
-        task.textContent = " patates";
-        menuContainer.appendChild(task);
+        task.classList.add("project-task-title");
+        task.contentEditable = "true";
+        task.placeholder = "Enter task title here";
+
+        const removeTaskButton = document.createElement("button");
+        removeTaskButton.textContent = "X";
+
+        taskContainer.appendChild(task);
+        taskContainer.appendChild(removeTaskButton);
+        menuContainer.appendChild(taskContainer);
+
+        removeTaskButton.addEventListener("click", () => {
+            taskContainer.removeChild(task);
+            taskContainer.removeChild(removeTaskButton);
+            menuContainer.removeChild(taskContainer);
+        });
     });
-    menuTop.appendChild(projectTaskButton);
+    menuTop.appendChild(addTaskButton);
     menuContainer.appendChild(menuTop);
 
     return menuContainer;
