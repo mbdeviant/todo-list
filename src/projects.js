@@ -3,7 +3,6 @@ export default function createProjectDisplay() {
     const projectsButton = document.getElementById("projects-button");
 
     projectsButton.addEventListener("click", () => {
-        console.log("ğü");
         if (container.querySelector("#project-container")) return;
         removeAllChildNodes(container);
         container.appendChild(createProjectContainer());
@@ -63,7 +62,6 @@ function createProjectContainer() {
     newProjectButton.addEventListener("click", () => {
         projectContainer.appendChild(Project.newItem);
         Project.titlePreview.focus();
-        console.log(projectContainer.childNodes);
     });
 
     projectContainer.addEventListener("click", (e) => {
@@ -74,7 +72,6 @@ function createProjectContainer() {
         if (e.target.matches(".remove-button")) {
             projectContainer.removeChild(e.target.parentNode.parentNode);
         }
-        console.log(index);
     });
 
     return projectContainer;
@@ -94,7 +91,6 @@ Project.cancelButton.addEventListener("click", () => {
     const container = document.getElementById("project-container");
 
     container.removeChild(Project.newItem);
-    console.log(container.childNodes);
 
     Project.reset();
 });
