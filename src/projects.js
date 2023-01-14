@@ -100,6 +100,7 @@ Project.cancelButton.addEventListener("click", () => {
 function createProject(title) {
     const projectItem = document.createElement("div");
     projectItem.classList.add("project-item");
+    const itemExpandMenu = expandMenu();
 
     const projectItemHeader = document.createElement("div");
     projectItemHeader.classList.add("project-item-header");
@@ -107,6 +108,9 @@ function createProject(title) {
     const projectTitle = document.createElement("p");
     projectItem.classList.add("project-title");
     projectTitle.textContent = title;
+    projectTitle.addEventListener("click", () => {
+        itemExpandMenu.classList.toggle("hidden");
+    });
 
     const removeButton = document.createElement("button");
     removeButton.setAttribute("id", "remove-button");
@@ -116,16 +120,23 @@ function createProject(title) {
     projectItemHeader.appendChild(projectTitle);
     projectItemHeader.appendChild(removeButton);
     projectItem.appendChild(projectItemHeader);
-    projectItem.appendChild(expandMenu());
+    projectItem.appendChild(itemExpandMenu);
 
     return projectItem;
 }
 function expandMenu() {
     const menuContainer = document.createElement("div");
     menuContainer.classList.add("expand-menu-container");
-    const test = document.createElement("button");
-    test.textContent = "+Add task";
-    menuContainer.appendChild(test);
+    const projectTaskButton = document.createElement("button");
+    projectTaskButton.textContent = "+Add task";
+
+    projectTaskButton.addEventListener("click", () => {
+        const task = document.createElement("p");
+        task.textContent = " patates";
+        menuContainer.appendChild(task);
+    });
+
+    menuContainer.appendChild(projectTaskButton);
 
     return menuContainer;
 }
