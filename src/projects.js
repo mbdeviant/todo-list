@@ -20,11 +20,11 @@ const Project = (() => {
 
     const saveButton = document.createElement("button");
     saveButton.textContent = "Save";
-    saveButton.classList.add("project-button");
+    saveButton.classList.add("save-project-button");
 
     const cancelButton = document.createElement("button");
     cancelButton.textContent = "Cancel";
-    cancelButton.classList.add("project-button");
+    cancelButton.classList.add("cancel-project-button");
 
     titlePreview.addEventListener("input", () => {
         titlePreview.style.borderColor = "black";
@@ -100,6 +100,8 @@ Project.cancelButton.addEventListener("click", () => {
 });
 
 function createProject(title) {
+    const container = document.getElementById("project-container");
+
     const projectItem = document.createElement("div");
     projectItem.classList.add("project-item");
     const itemExpandMenu = expandMenu();
@@ -113,6 +115,10 @@ function createProject(title) {
 
     projectItemHeader.addEventListener("click", () => {
         itemExpandMenu.classList.toggle("hidden");
+        if (container.querySelector(".new-item-display")) {
+            container.removeChild(Project.newItem);
+            Project.reset();
+        }
     });
 
     const removeButton = document.createElement("button");
@@ -128,6 +134,8 @@ function createProject(title) {
     return projectItem;
 }
 function expandMenu() {
+    const container = document.getElementById("project-container");
+
     const menuContainer = document.createElement("div");
     menuContainer.classList.add("expand-menu-container");
 
@@ -136,9 +144,14 @@ function expandMenu() {
 
     const addTaskButton = document.createElement("button");
     addTaskButton.classList.add("expand-menu-add-button");
-    addTaskButton.textContent = "+Add task to project";
+    addTaskButton.textContent = "+";
 
     addTaskButton.addEventListener("click", () => {
+        if (container.querySelector(".new-item-display")) {
+            container.removeChild(Project.newItem);
+            Project.reset();
+        }
+
         const taskContainer = document.createElement("div");
         taskContainer.classList.add("project-task-container");
 
@@ -150,7 +163,6 @@ function expandMenu() {
         task.classList.add("project-task-title");
         task.contentEditable = "true";
         task.spellcheck = false;
-        task.placeholder = "Enter task title here";
 
         const removeTaskButton = document.createElement("button");
         removeTaskButton.classList.add("project-task-remove-button");
