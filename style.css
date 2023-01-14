@@ -356,6 +356,7 @@ img {
     background-color: rgba(210, 0, 0, 0.4);
 }
 .project-item {
+    background-color: rgba(0, 0, 0, 0.07);
     width: 80%;
     padding: 5px 15px;
     display: flex;
@@ -365,11 +366,14 @@ img {
     border-radius: 4px;
 }
 .project-item-header {
+    font-family: "Poppins", sans-serif;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 3px solid black;
+    font-size: 18px;
+    font-weight: 800;
 }
 .project-item-header:hover {
     cursor: pointer;
@@ -390,14 +394,11 @@ img {
     justify-content: center;
 }
 .expand-menu-add-button {
-    font-size: 14px;
+    font-size: 22px;
     background: transparent;
     border: 1px solid transparent;
-    transition: 0.3s;
 }
-.expand-menu-add-button:hover {
-    border-bottom: 1px solid black;
-}
+
 .project-task-container {
     display: flex;
     justify-content: space-between;
@@ -409,6 +410,8 @@ img {
     width: 100%;
 }
 .project-task-title {
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
     width: 50%;
     overflow: auto;
 }
