@@ -81,9 +81,10 @@ function createProjectContainer() {
 
 Project.saveButton.addEventListener("click", () => {
     const container = document.getElementById("project-container");
-    console.log(Project.isEmpty());
     if (Project.isEmpty()) return;
+
     const project = createProject(Project.titlePreview.value.trim());
+
     container.appendChild(project);
     container.removeChild(Project.newItem);
     Project.reset();
@@ -127,16 +128,20 @@ function createProject(title) {
 function expandMenu() {
     const menuContainer = document.createElement("div");
     menuContainer.classList.add("expand-menu-container");
+
+    const menuTop = document.createElement("div");
+    menuTop.classList.add("expand-menu-top");
+
     const projectTaskButton = document.createElement("button");
-    projectTaskButton.textContent = "+Add task";
+    projectTaskButton.textContent = "+Add Task";
 
     projectTaskButton.addEventListener("click", () => {
         const task = document.createElement("p");
         task.textContent = " patates";
         menuContainer.appendChild(task);
     });
-
-    menuContainer.appendChild(projectTaskButton);
+    menuTop.appendChild(projectTaskButton);
+    menuContainer.appendChild(menuTop);
 
     return menuContainer;
 }
