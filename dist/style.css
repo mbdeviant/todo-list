@@ -58,7 +58,6 @@ nav > button {
 
 button:hover {
     cursor: pointer;
-    background-color: gold;
 }
 .footer {
     left: 0;
@@ -353,12 +352,11 @@ img {
     align-items: center;
     border-bottom: 3px solid black;
 }
-.project-item-header > p:hover {
+.project-item-header:hover {
     cursor: pointer;
 }
 .expand-menu-container {
     display: none;
-    background-color: red;
     width: 100%;
 }
 
@@ -366,20 +364,44 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    transition: 1s;
 }
 .expand-menu-top {
-    background-color: blue;
     display: flex;
     justify-content: center;
+}
+.expand-menu-add-button {
+    font-size: 14px;
+    background: transparent;
+    border: 1px solid transparent;
+    transition: 0.3s;
+}
+.expand-menu-add-button:hover {
+    border-bottom: 1px solid black;
 }
 .project-task-container {
     display: flex;
     justify-content: space-between;
 }
+.task-container-left {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    width: 100%;
+}
 .project-task-title {
-    width: 45%;
+    width: 50%;
     overflow: auto;
-    background-color: springgreen;
+}
+.project-task-title:focus {
+    outline: none;
+    border-bottom: 1px solid black;
+}
+.project-task-remove-button {
+    font-family: cursive;
+    background-color: transparent;
+    border: transparent;
+    margin-right: 6px;
 }
 
 @media (max-width: 700px) {
