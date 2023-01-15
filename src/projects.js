@@ -155,10 +155,14 @@ function expandMenu() {
         left.classList.add("task-container-left");
         const mark = document.createElement("p");
         mark.textContent = "●";
+
         const task = document.createElement("p");
         task.classList.add("project-task-title");
         task.contentEditable = "true";
         task.spellcheck = false;
+        task.addEventListener("input", () => {
+            saveProjectToLocalStorage();
+        });
 
         const removeTaskButton = document.createElement("button");
         removeTaskButton.classList.add("project-task-remove-button");
@@ -192,7 +196,7 @@ function saveProjectToLocalStorage() {
             project.querySelector(".project-title").textContent;
 
         const tasks = [];
-        project.querySelectorAll(".project-task-title").forEach((task) => {
+        project.querySelectorAll(".task-container-left").forEach((task) => {
             const taskTitle = task.querySelector(
                 ".project-task-title"
             ).textContent;
