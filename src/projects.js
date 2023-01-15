@@ -86,6 +86,7 @@ Project.saveButton.addEventListener("click", () => {
     container.appendChild(project);
     container.removeChild(Project.newItem);
     Project.reset();
+    saveProjectToLocalStorage();
 });
 Project.cancelButton.addEventListener("click", () => {
     const container = document.getElementById("project-container");
@@ -104,7 +105,7 @@ function createProject(title) {
     projectItemHeader.classList.add("project-item-header");
 
     const projectTitle = document.createElement("p");
-    projectItem.classList.add("project-title");
+    projectTitle.classList.add("project-title");
     projectTitle.textContent = title;
 
     projectItemHeader.addEventListener("click", () => {
@@ -127,6 +128,7 @@ function createProject(title) {
 
     return projectItem;
 }
+
 function expandMenu() {
     const container = document.getElementById("project-container");
 
@@ -179,6 +181,27 @@ function expandMenu() {
     menuContainer.appendChild(menuTop);
 
     return menuContainer;
+}
+
+function saveProjectToLocalStorage() {
+    const projectContainer = document.getElementById("project-container");
+
+    const projects = [];
+    projectContainer.childNodes.forEach((project) => {
+        const projectTitle =
+            project.querySelector(".project-title").textContent;
+
+        const tasks = [];
+        project.querySelectorAll(".project-task-title").forEach((task) => {
+            const taskTitle = task.querySelector(
+                ".project-task-title"
+            ).textContent;
+            tasks.push({ title: taskTitle });
+        });
+        projects.push({ title: projectTitle, tasks });
+    });
+    const data = JSON.stringify({ projects });
+    localStorage.setItem("projects", data);
 }
 
 function removeAllChildNodes(parent) {
