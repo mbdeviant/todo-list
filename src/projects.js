@@ -74,6 +74,22 @@ function createProjectContainer() {
         console.log(index);
     });
 
+    function getDataFromLocalStorage() {
+        const data = localStorage.getItem("projects");
+        if (!data) return;
+        const { projects } = JSON.parse(data);
+
+        projects.forEach((project) => {
+            const projectItem = createProject(project.title);
+
+            project.tasks.forEach((task) => {
+                const taskItem = createProjectTask(task.title);
+                projectItem.expandMenu.appendChild(taskItem);
+            });
+            projectContainer.appendChild(projectItem);
+        });
+    }
+    getDataFromLocalStorage();
     return projectContainer;
 }
 
@@ -95,11 +111,8 @@ Project.cancelButton.addEventListener("click", () => {
 });
 
 function createProject(title) {
-    const container = document.getElementById("project-container");
-
     const projectItem = document.createElement("div");
     projectItem.classList.add("project-item");
-    const itemExpandMenu = expandMenu();
 
     const projectItemHeader = document.createElement("div");
     projectItemHeader.classList.add("project-item-header");
@@ -108,32 +121,13 @@ function createProject(title) {
     projectTitle.classList.add("project-title");
     projectTitle.textContent = title;
 
-    projectItemHeader.addEventListener("click", () => {
-        itemExpandMenu.classList.toggle("hidden");
-        if (container.querySelector(".new-item-display")) {
-            container.removeChild(Project.newItem);
-            Project.reset();
-        }
-    });
-
     const removeButton = document.createElement("button");
     removeButton.setAttribute("id", "remove-button");
     removeButton.classList.add("remove-button");
     removeButton.innerHTML = "X";
 
-    projectItemHeader.appendChild(projectTitle);
-    projectItemHeader.appendChild(removeButton);
-    projectItem.appendChild(projectItemHeader);
-    projectItem.appendChild(itemExpandMenu);
-
-    return projectItem;
-}
-
-function expandMenu() {
-    const container = document.getElementById("project-container");
-
-    const menuContainer = document.createElement("div");
-    menuContainer.classList.add("expand-menu-container");
+    const expandmenuContainer = document.createElement("div");
+    expandmenuContainer.classList.add("expand-menu-container");
 
     const menuTop = document.createElement("div");
     menuTop.classList.add("expand-menu-top");
@@ -143,48 +137,59 @@ function expandMenu() {
     addTaskButton.textContent = "+";
 
     addTaskButton.addEventListener("click", () => {
-        if (container.querySelector(".new-item-display")) {
-            container.removeChild(Project.newItem);
-            Project.reset();
-        }
-
-        const taskContainer = document.createElement("div");
-        taskContainer.classList.add("project-task-container");
-
-        const left = document.createElement("div");
-        left.classList.add("task-container-left");
-        const mark = document.createElement("p");
-        mark.textContent = "●";
-
-        const task = document.createElement("p");
-        task.classList.add("project-task-title");
-        task.contentEditable = "true";
-        task.spellcheck = false;
-        task.addEventListener("input", () => {
-            saveProjectToLocalStorage();
-        });
-
-        const removeTaskButton = document.createElement("button");
-        removeTaskButton.classList.add("project-task-remove-button");
-        removeTaskButton.textContent = "x";
-
-        left.appendChild(mark);
-        left.appendChild(task);
-        taskContainer.appendChild(left);
-        taskContainer.appendChild(removeTaskButton);
-        menuContainer.appendChild(taskContainer);
-        task.focus();
-
-        removeTaskButton.addEventListener("click", () => {
-            taskContainer.removeChild(left);
-            taskContainer.removeChild(removeTaskButton);
-            menuContainer.removeChild(taskContainer);
-        });
+        const task = createProjectTask();
+        expandmenuContainer.appendChild(task);
     });
-    menuTop.appendChild(addTaskButton);
-    menuContainer.appendChild(menuTop);
+    projectItem.expandMenu = expandmenuContainer;
 
-    return menuContainer;
+    menuTop.appendChild(addTaskButton);
+    expandmenuContainer.appendChild(menuTop);
+
+    projectItemHeader.addEventListener("click", () => {
+        expandmenuContainer.classList.toggle("hidden");
+    });
+
+    projectItemHeader.appendChild(projectTitle);
+    projectItemHeader.appendChild(removeButton);
+    projectItem.appendChild(projectItemHeader);
+    projectItem.appendChild(expandmenuContainer);
+
+    return projectItem;
+}
+
+function createProjectTask(text) {
+    const taskContainer = document.createElement("div");
+    taskContainer.classList.add("project-task-container");
+
+    const left = document.createElement("div");
+    left.classList.add("task-container-left");
+    const mark = document.createElement("p");
+    mark.textContent = "●";
+
+    const task = document.createElement("p");
+    task.textContent = text;
+    task.classList.add("project-task-title");
+    task.contentEditable = "true";
+    task.spellcheck = false;
+    task.addEventListener("input", () => {
+        saveProjectToLocalStorage();
+    });
+
+    const removeTaskButton = document.createElement("button");
+    removeTaskButton.classList.add("project-task-remove-button");
+    removeTaskButton.textContent = "x";
+
+    left.appendChild(mark);
+    left.appendChild(task);
+    taskContainer.appendChild(left);
+    taskContainer.appendChild(removeTaskButton);
+    task.focus();
+
+    removeTaskButton.addEventListener("click", () => {
+        taskContainer.removeChild(left);
+        taskContainer.removeChild(removeTaskButton);
+    });
+    return taskContainer;
 }
 
 function saveProjectToLocalStorage() {
