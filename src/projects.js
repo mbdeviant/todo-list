@@ -65,12 +65,21 @@ function createProjectContainer() {
     });
 
     projectContainer.addEventListener("click", (e) => {
+        const data = localStorage.getItem("projects");
+        if (!data) return;
+        const { projects } = JSON.parse(data);
         if (e.target.matches(".remove-button")) {
-            const index = Array.from(projectContainer.childNodes).indexOf(
-                e.target.parentNode.parentNode
+            // const index = Array.from(projectContainer.childNodes).indexOf(
+            //     e.target.parentNode.parentNode
+            // );
+            const { projectId } = e.target.parentNode.parentNode.dataset;
+            const index = projects.findIndex(
+                (project) => project.id === projectId
             );
+            projects.splice(index, 1);
+            // console.log(index);
             projectContainer.removeChild(e.target.parentNode.parentNode);
-            console.log(index);
+            localStorage.setItem("projects", JSON.stringify({ projects }));
         }
     });
 
@@ -78,8 +87,9 @@ function createProjectContainer() {
         const data = localStorage.getItem("projects");
         if (!data) return;
         const { projects } = JSON.parse(data);
+        if (!projects) return;
         projects.forEach((project) => {
-            const projectItem = createProject(project.title);
+            const projectItem = createProject(project.title, project.id);
             project.tasks.forEach((task) => {
                 const taskItem = createProjectTask(task.title);
                 projectItem.expandMenu.appendChild(taskItem);
@@ -188,8 +198,9 @@ function createProjectTask(text) {
             e.target.parentNode.parentNode.childNodes
         ).indexOf(e.target.parentNode);
         console.log(index - 1); // minus the add button in the expand menu container
-        taskContainer.removeChild(left);
-        taskContainer.removeChild(removeTaskButton);
+        // taskContainer.removeChild(left);
+        // taskContainer.removeChild(removeTaskButton);
+        removeTaskFromProject(index - 1);
     });
     return taskContainer;
 }
@@ -213,6 +224,16 @@ function saveProjectToLocalStorage() {
     });
     const data = JSON.stringify({ projects });
     localStorage.setItem("projects", data);
+}
+
+function removeTaskFromProject(task) {
+    const data = localStorage.getItem("projects");
+    if (!data) return;
+    const { projects } = JSON.parse(data);
+    const index = projects.indexOf(
+        (savedTask) => savedTask.title === task.title
+    );
+    console.log(index);
 }
 
 function removeAllChildNodes(parent) {
