@@ -65,23 +65,21 @@ function createProjectContainer() {
     });
 
     projectContainer.addEventListener("click", (e) => {
-        const index = Array.from(projectContainer.childNodes).indexOf(
-            e.target.parentNode
-        );
         if (e.target.matches(".remove-button")) {
+            const index = Array.from(projectContainer.childNodes).indexOf(
+                e.target.parentNode.parentNode
+            );
             projectContainer.removeChild(e.target.parentNode.parentNode);
+            console.log(index);
         }
-        console.log(index);
     });
 
     function getDataFromLocalStorage() {
         const data = localStorage.getItem("projects");
         if (!data) return;
         const { projects } = JSON.parse(data);
-
         projects.forEach((project) => {
             const projectItem = createProject(project.title);
-
             project.tasks.forEach((task) => {
                 const taskItem = createProjectTask(task.title);
                 projectItem.expandMenu.appendChild(taskItem);
@@ -185,7 +183,11 @@ function createProjectTask(text) {
     taskContainer.appendChild(removeTaskButton);
     task.focus();
 
-    removeTaskButton.addEventListener("click", () => {
+    removeTaskButton.addEventListener("click", (e) => {
+        const index = Array.from(
+            e.target.parentNode.parentNode.childNodes
+        ).indexOf(e.target.parentNode);
+        console.log(index - 1); // minus the add button in the expand menu container
         taskContainer.removeChild(left);
         taskContainer.removeChild(removeTaskButton);
     });
