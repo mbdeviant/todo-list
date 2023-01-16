@@ -69,15 +69,11 @@ function createProjectContainer() {
         if (!data) return;
         const { projects } = JSON.parse(data);
         if (e.target.matches(".remove-button")) {
-            // const index = Array.from(projectContainer.childNodes).indexOf(
-            //     e.target.parentNode.parentNode
-            // );
             const { projectId } = e.target.parentNode.parentNode.dataset;
             const index = projects.findIndex(
                 (project) => project.id === projectId
             );
             projects.splice(index, 1);
-            // console.log(index);
             projectContainer.removeChild(e.target.parentNode.parentNode);
             localStorage.setItem("projects", JSON.stringify({ projects }));
         }
@@ -91,7 +87,7 @@ function createProjectContainer() {
         projects.forEach((project) => {
             const projectItem = createProject(project.title, project.id);
             project.tasks.forEach((task) => {
-                const taskItem = createProjectTask(task.title);
+                const taskItem = createProjectTask(task.title, task.id);
                 projectItem.expandMenu.appendChild(taskItem);
             });
             projectContainer.appendChild(projectItem);
@@ -145,8 +141,19 @@ function createProject(title) {
     addTaskButton.textContent = "+";
 
     addTaskButton.addEventListener("click", () => {
-        const task = createProjectTask();
+        const text = "";
+        const taskId = Date.now();
+        const task = createProjectTask(text, taskId);
         expandmenuContainer.appendChild(task);
+        const data = localStorage.getItem("projects");
+
+        const { projects } = JSON.parse(data);
+        const { projectId } = expandmenuContainer.parentNode.dataset;
+        const projectIndex = projects.findIndex(
+            (project) => project.id === projectId
+        );
+        projects[projectIndex].tasks.push({ title: text, id: taskId });
+        localStorage.setItem("projects", JSON.stringify({ projects }));
     });
     projectItem.expandMenu = expandmenuContainer;
 
@@ -165,9 +172,11 @@ function createProject(title) {
     return projectItem;
 }
 
-function createProjectTask(text) {
+function createProjectTask(text, id) {
     const taskContainer = document.createElement("div");
     taskContainer.classList.add("project-task-container");
+
+    taskContainer.dataset.id = id;
 
     const left = document.createElement("div");
     left.classList.add("task-container-left");
@@ -194,13 +203,19 @@ function createProjectTask(text) {
     task.focus();
 
     removeTaskButton.addEventListener("click", (e) => {
-        const index = Array.from(
-            e.target.parentNode.parentNode.childNodes
-        ).indexOf(e.target.parentNode);
-        console.log(index - 1); // minus the add button in the expand menu container
-        // taskContainer.removeChild(left);
-        // taskContainer.removeChild(removeTaskButton);
-        removeTaskFromProject(index - 1);
+        const data = localStorage.getItem("projects");
+        const { projects } = JSON.parse(data);
+        const { taskId } = e.target.parentNode.dataset;
+        const { projectId } = e.target.parentNode.parentNode.parentNode.dataset;
+        const projectIndex = projects.findIndex(
+            (project) => project.id === projectId
+        );
+        const taskIndex = projects[projectIndex].tasks.findIndex(
+            (taskItem) => taskItem.id === taskId
+        );
+        projects[projectIndex].tasks.splice(taskIndex, 1);
+        localStorage.setItem("projects", JSON.stringify({ projects }));
+        e.target.parentNode.remove();
     });
     return taskContainer;
 }
@@ -226,15 +241,15 @@ function saveProjectToLocalStorage() {
     localStorage.setItem("projects", data);
 }
 
-function removeTaskFromProject(task) {
-    const data = localStorage.getItem("projects");
-    if (!data) return;
-    const { projects } = JSON.parse(data);
-    const index = projects.indexOf(
-        (savedTask) => savedTask.title === task.title
-    );
-    console.log(index);
-}
+// function removeTaskFromProject(task) {
+//     const data = localStorage.getItem("projects");
+//     if (!data) return;
+//     const { projects } = JSON.parse(data);
+//     const index = projects.indexOf(
+//         (savedTask) => savedTask.title === task.title
+//     );
+//     console.log(index);
+// }
 
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
