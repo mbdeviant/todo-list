@@ -66,13 +66,17 @@ function createProjectContainer() {
 
     projectContainer.addEventListener("click", (e) => {
         const data = localStorage.getItem("projects");
+
         if (!data) return;
         const { projects } = JSON.parse(data);
         if (e.target.matches(".remove-button")) {
             const { projectId } = e.target.parentNode.parentNode.dataset;
             const index = projects.findIndex(
+                // something terribly wrong here
                 (project) => project.id === projectId
             );
+            console.log(index);
+            return;
             projects.splice(index, 1);
             projectContainer.removeChild(e.target.parentNode.parentNode);
             localStorage.setItem("projects", JSON.stringify({ projects }));
