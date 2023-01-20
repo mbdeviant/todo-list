@@ -207,15 +207,11 @@ function createTask(desc, due, priorityValue, check) {
 
     checkbox.addEventListener("click", () => {
         left.classList.toggle("completed");
-        right.classList.toggle("completed");
         taskItem.classList.toggle("completed");
-        taskInfo.classList.toggle("completed");
     });
     if (check) {
         left.classList.add("completed");
-        right.classList.add("completed");
         taskItem.classList.add("completed");
-        taskInfo.classList.add("completed");
     }
     left.appendChild(checkbox);
     left.appendChild(description);
