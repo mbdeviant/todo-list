@@ -123,6 +123,7 @@ img {
     display: flex;
     background-color: transparent;
     width: 260px;
+    border-radius: 4px;
     padding: 3px;
     gap: 5px;
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
@@ -314,6 +315,10 @@ img {
 .task-desc-preview {
     font-size: 20px;
     width: 80%;
+}
+.checkbox {
+    width: 18px;
+    height: 18px;
 }
 
 .new-item-display {
