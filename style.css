@@ -313,12 +313,12 @@ img {
     cursor: default;
 }
 .task-desc-preview {
-    font-size: 20px;
+    font-size: 21px;
     width: 80%;
 }
 .checkbox {
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    height: 15px;
 }
 
 .new-item-display {
