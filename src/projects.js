@@ -20,6 +20,7 @@ const Project = (() => {
     const saveButton = document.createElement("button");
     saveButton.textContent = "Save";
     saveButton.classList.add("save-project-button");
+    const id = 100;
 
     const cancelButton = document.createElement("button");
     cancelButton.textContent = "Cancel";
@@ -46,7 +47,15 @@ const Project = (() => {
     newItem.appendChild(saveButton);
     newItem.appendChild(cancelButton);
 
-    return { newItem, titlePreview, saveButton, cancelButton, isEmpty, reset };
+    return {
+        newItem,
+        titlePreview,
+        saveButton,
+        cancelButton,
+        isEmpty,
+        reset,
+        id,
+    };
 })();
 
 function createProjectContainer() {
@@ -72,7 +81,7 @@ function createProjectContainer() {
 
         if (e.target.matches(".remove-button")) {
             const { projectId } = e.target.parentNode.parentNode.dataset;
-            console.log(projectId);
+            console.log(`${projectId} project id`);
             return;
             const index = projects.findIndex(
                 // something terribly wrong here
@@ -114,10 +123,10 @@ Project.saveButton.addEventListener("click", () => {
     const container = document.getElementById("project-container");
 
     if (Project.isEmpty()) return;
-    let id = 100;
     const project = createProject(Project.titlePreview.value.trim());
-    project.dataset.projectId = id;
-    id += 100;
+    project.dataset.projectId = Project.id;
+    Project.id += 1;
+
     container.appendChild(project);
     container.removeChild(Project.newItem);
     Project.reset();
