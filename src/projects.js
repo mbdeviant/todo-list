@@ -100,7 +100,7 @@ function createProjectContainer() {
         const { projects } = JSON.parse(data);
         if (!projects) return;
         let projectid = 0;
-        let taskid = 0; // forgett adding id in the createProject function. add dataset while you reloading them from dom. do same thing in the saveToLocalStorage apply it to task itemm too if needed
+        let taskid = 0;
         projects.forEach((project) => {
             const projectItem = createProject(project.title);
             projectItem.dataset.projectId = projectid;
@@ -141,10 +141,6 @@ Project.cancelButton.addEventListener("click", () => {
 function createProject(title) {
     const projectItem = document.createElement("div");
     projectItem.classList.add("project-item");
-
-    // const projectId = Date.now();
-    // projectItem.dataset.projectId = projectId;
-    // console.log(projectId);
 
     const projectItemHeader = document.createElement("div");
     projectItemHeader.classList.add("project-item-header");
@@ -240,7 +236,6 @@ function createProjectTask(text) {
         console.log(`${taskId} taskId`);
         const { projectId } = e.target.parentNode.parentNode.parentNode.dataset;
         console.log(`${projectId} project id`);
-        // console.log(projects[projectId]);
         return;
         const projectIndex = projects.findIndex(
             (project) => project.id === projectId
