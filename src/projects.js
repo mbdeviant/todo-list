@@ -222,7 +222,7 @@ function createProjectTask(text) {
     task.classList.add("project-task-title");
     task.contentEditable = "true";
     task.spellcheck = false;
-    task.placeholder = "Add a task to your project here.";
+
     task.addEventListener("input", (e) => {
         const projects = JSON.parse(localStorage.getItem("projects")) || [];
         const { taskId } = taskContainer.dataset;
