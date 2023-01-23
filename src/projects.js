@@ -29,7 +29,6 @@ const Project = (() => {
     const saveButton = document.createElement("button");
     saveButton.textContent = "Save";
     saveButton.classList.add("save-project-button");
-    // const id = 100;
 
     const cancelButton = document.createElement("button");
     cancelButton.textContent = "Cancel";
@@ -144,7 +143,6 @@ Project.saveButton.addEventListener("click", () => {
     container.appendChild(project);
     container.removeChild(Project.newItem);
     Project.reset();
-    // saveProjectToLocalStorage();
 });
 Project.cancelButton.addEventListener("click", () => {
     const container = document.getElementById("project-container");
@@ -265,29 +263,6 @@ function createProjectTask(text) {
     });
     return taskContainer;
 }
-// function saveProjectToLocalStorage() {
-//     const projectContainer = document.getElementById("project-container");
-
-//     const projects = [];
-//     let projectid = 0;
-//     let taskid = 0;
-//     projectContainer.childNodes.forEach((project) => {
-//         const projectTitle =
-//             project.querySelector(".project-title").textContent;
-//         const tasks = [];
-//         project.querySelectorAll(".task-container-left").forEach((task) => {
-//             const taskTitle = task.querySelector(
-//                 ".project-task-title"
-//             ).textContent;
-//             tasks.push({ title: taskTitle, taskId: taskid });
-//             taskid += 1;
-//         });
-//         projects.push({ title: projectTitle, projectId: projectid, tasks });
-//         projectid += 1;
-//     });
-//     const data = JSON.stringify({ projects });
-//     localStorage.setItem("projects", data);
-// }
 
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
