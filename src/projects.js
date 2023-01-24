@@ -10,11 +10,20 @@ export default function createProjectDisplay() {
 }
 
 const Id = (() => {
-    const projectId = 0;
-    const taskId = 0;
+    let projectId = parseInt(localStorage.getItem("lastProjectId") || 0, 10);
+    let taskId = parseInt(localStorage.getItem("lastTaskId") || 0, 10);
+
     return {
         projectId,
         taskId,
+        updateProjectId() {
+            projectId += 1;
+            localStorage.setItem("lastProjectId", projectId.toString());
+        },
+        updateTaskId() {
+            taskId += 1;
+            localStorage.setItem("lastTaskId", taskId.toString());
+        },
     };
 })();
 
@@ -118,24 +127,28 @@ function createProjectContainer() {
 }
 
 Project.saveButton.addEventListener("click", () => {
+    // id always 0 again
     const container = document.getElementById("project-container");
+    const projects = JSON.parse(localStorage.getItem("projects")) || [];
 
     if (Project.isEmpty()) return;
     const projectTitle = Project.titlePreview.value.trim();
     const project = createProject(projectTitle);
     project.dataset.projectId = Id.projectId;
-    const projects = JSON.parse(localStorage.getItem("projects")) || [];
+    console.log(Id.projectId);
+    console.log(project.dataset.projectId);
     projects.push({
         title: projectTitle,
         id: project.dataset.projectId,
         tasks: [],
     });
     localStorage.setItem("projects", JSON.stringify(projects));
-    Id.projectId += 1;
 
     container.appendChild(project);
     container.removeChild(Project.newItem);
     Project.reset();
+    console.log(project.dataset.projectId);
+    Id.updateProjectId();
 });
 Project.cancelButton.addEventListener("click", () => {
     const container = document.getElementById("project-container");
@@ -176,10 +189,9 @@ function createProject(title) {
         const projects = JSON.parse(localStorage.getItem("projects")) || [];
         const { projectId } = expandmenuContainer.parentNode.dataset;
         const projectIndex = projects.find((p) => p.id === projectId);
-        console.log(projectIndex);
         projectIndex.tasks.push({ title: text, id: task.dataset.taskId });
         localStorage.setItem("projects", JSON.stringify(projects));
-        Id.taskId += 1;
+        Id.updateTaskId();
     });
     projectItem.expandMenu = expandmenuContainer;
 
