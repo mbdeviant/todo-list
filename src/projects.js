@@ -9,20 +9,55 @@ export default function createProjectDisplay() {
     });
 }
 
+// const Id = (() => {
+//     let projectId = parseInt(localStorage.getItem("projectId") || 0, 10);
+//     let taskId = parseInt(localStorage.getItem("taskId") || 0, 10);
+
+//     return {
+//         updateProjectId() {
+//             projectId += 1;
+//             localStorage.setItem("projectId", projectId.toString());
+//         },
+//         updateTaskId() {
+//             taskId += 1;
+//             localStorage.setItem("taskId", taskId.toString());
+//         },
+//         projectId,
+//         taskId,
+//     };
+// })();
+
 const Id = (() => {
-    let projectId = parseInt(localStorage.getItem("lastProjectId") || 0, 10);
-    let taskId = parseInt(localStorage.getItem("lastTaskId") || 0, 10);
+    let projectId = parseInt(localStorage.getItem("projectId"), 10) || 0;
+    let taskId = parseInt(localStorage.getItem("taskId"), 10) || 0;
+
+    function updateLocalStorage() {
+        localStorage.setItem("projectId", projectId);
+        localStorage.setItem("taskId", taskId);
+    }
 
     return {
-        projectId,
-        taskId,
-        updateProjectId() {
-            projectId += 1;
-            localStorage.setItem("lastProjectId", projectId.toString());
+        get projectId() {
+            return projectId;
         },
-        updateTaskId() {
+        set projectId(value) {
+            projectId = value;
+            updateLocalStorage();
+        },
+        get taskId() {
+            return taskId;
+        },
+        set taskId(value) {
+            taskId = value;
+            updateLocalStorage();
+        },
+        incrementProjectId() {
+            projectId += 1;
+            updateLocalStorage();
+        },
+        incrementTaskId() {
             taskId += 1;
-            localStorage.setItem("lastTaskId", taskId.toString());
+            updateLocalStorage();
         },
     };
 })();
@@ -127,7 +162,9 @@ function createProjectContainer() {
 }
 
 Project.saveButton.addEventListener("click", () => {
-    // id always 0 again
+    Id.incrementProjectId();
+    console.log(Id.projectId);
+    return;
     const container = document.getElementById("project-container");
     const projects = JSON.parse(localStorage.getItem("projects")) || [];
 
@@ -139,7 +176,7 @@ Project.saveButton.addEventListener("click", () => {
     console.log(project.dataset.projectId);
     projects.push({
         title: projectTitle,
-        id: project.dataset.projectId,
+        id: Id.projectId,
         tasks: [],
     });
     localStorage.setItem("projects", JSON.stringify(projects));
@@ -148,7 +185,6 @@ Project.saveButton.addEventListener("click", () => {
     container.removeChild(Project.newItem);
     Project.reset();
     console.log(project.dataset.projectId);
-    Id.updateProjectId();
 });
 Project.cancelButton.addEventListener("click", () => {
     const container = document.getElementById("project-container");
