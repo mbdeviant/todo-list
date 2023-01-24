@@ -9,24 +9,6 @@ export default function createProjectDisplay() {
     });
 }
 
-// const Id = (() => {
-//     let projectId = parseInt(localStorage.getItem("projectId") || 0, 10);
-//     let taskId = parseInt(localStorage.getItem("taskId") || 0, 10);
-
-//     return {
-//         updateProjectId() {
-//             projectId += 1;
-//             localStorage.setItem("projectId", projectId.toString());
-//         },
-//         updateTaskId() {
-//             taskId += 1;
-//             localStorage.setItem("taskId", taskId.toString());
-//         },
-//         projectId,
-//         taskId,
-//     };
-// })();
-
 const Id = (() => {
     let projectId = parseInt(localStorage.getItem("projectId"), 10) || 0;
     let taskId = parseInt(localStorage.getItem("taskId"), 10) || 0;
