@@ -100,21 +100,14 @@ function createProjectContainer() {
     });
 
     function getDataFromLocalStorage() {
-        const data = localStorage.getItem("projects");
-        if (!data) return;
-        const { projects } = JSON.parse(data);
+        const projects = JSON.parse(localStorage.getItem("projects")) || [];
         if (!projects) return;
-        let projectid = 0;
-        let taskid = 0;
         projects.forEach((project) => {
             const projectItem = createProject(project.title);
-            projectItem.dataset.projectId = projectid;
-            projectid += 1;
-
+            projectItem.dataset.projectId = project.id;
             project.tasks.forEach((task) => {
                 const taskItem = createProjectTask(task.title);
-                taskItem.dataset.taskId = taskid;
-                taskid += 1;
+                taskItem.dataset.taskId = task.id;
                 projectItem.expandMenu.appendChild(taskItem);
             });
             projectContainer.appendChild(projectItem);
@@ -182,7 +175,6 @@ function createProject(title) {
         expandmenuContainer.appendChild(task);
         const projects = JSON.parse(localStorage.getItem("projects")) || [];
         const { projectId } = expandmenuContainer.parentNode.dataset;
-
         const projectIndex = projects.find((p) => p.id === projectId);
         console.log(projectIndex);
         projectIndex.tasks.push({ title: text, id: task.dataset.taskId });
@@ -224,9 +216,9 @@ function createProjectTask(text) {
     task.addEventListener("input", (e) => {
         const projects = JSON.parse(localStorage.getItem("projects")) || [];
         const { taskId } = taskContainer.dataset;
+        console.log(taskId);
         const { projectId } =
             e.target.parentNode.parentNode.parentNode.parentNode.dataset;
-
         const updatedTitle = e.target.textContent;
         const matchingProject = projects.find((p) => p.id === projectId);
         const matchingTask = matchingProject.tasks.find((t) => t.id === taskId);
