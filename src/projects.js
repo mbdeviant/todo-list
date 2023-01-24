@@ -162,29 +162,26 @@ function createProjectContainer() {
 }
 
 Project.saveButton.addEventListener("click", () => {
-    Id.incrementProjectId();
-    console.log(Id.projectId);
-    return;
     const container = document.getElementById("project-container");
     const projects = JSON.parse(localStorage.getItem("projects")) || [];
-
     if (Project.isEmpty()) return;
+
     const projectTitle = Project.titlePreview.value.trim();
     const project = createProject(projectTitle);
     project.dataset.projectId = Id.projectId;
-    console.log(Id.projectId);
-    console.log(project.dataset.projectId);
+    console.log(`${Id.projectId} id module`);
+    console.log(`${project.dataset.projectId}dataset id`);
     projects.push({
         title: projectTitle,
         id: Id.projectId,
         tasks: [],
     });
     localStorage.setItem("projects", JSON.stringify(projects));
+    Id.incrementProjectId();
 
     container.appendChild(project);
     container.removeChild(Project.newItem);
     Project.reset();
-    console.log(project.dataset.projectId);
 });
 Project.cancelButton.addEventListener("click", () => {
     const container = document.getElementById("project-container");
@@ -218,16 +215,20 @@ function createProject(title) {
     addTaskButton.textContent = "+";
 
     addTaskButton.addEventListener("click", () => {
+        const projects = JSON.parse(localStorage.getItem("projects")) || [];
         const text = "";
         const task = createProjectTask(text);
         task.dataset.taskId = Id.taskId;
         expandmenuContainer.appendChild(task);
-        const projects = JSON.parse(localStorage.getItem("projects")) || [];
         const { projectId } = expandmenuContainer.parentNode.dataset;
-        const projectIndex = projects.find((p) => p.id === projectId);
+        const projectIndex = projects.find(
+            (p) => parseInt(p.id, 10) === parseInt(projectId, 10)
+        );
+
+        console.log(projectIndex.title);
         projectIndex.tasks.push({ title: text, id: task.dataset.taskId });
         localStorage.setItem("projects", JSON.stringify(projects));
-        Id.updateTaskId();
+        Id.incrementTaskId();
     });
     projectItem.expandMenu = expandmenuContainer;
 
@@ -268,8 +269,12 @@ function createProjectTask(text) {
         const { projectId } =
             e.target.parentNode.parentNode.parentNode.parentNode.dataset;
         const updatedTitle = e.target.textContent;
-        const matchingProject = projects.find((p) => p.id === projectId);
-        const matchingTask = matchingProject.tasks.find((t) => t.id === taskId);
+        const matchingProject = projects.find(
+            (p) => parseInt(p.id, 10) === parseInt(projectId, 10)
+        );
+        const matchingTask = matchingProject.tasks.find(
+            (t) => parseInt(t.id, 10) === parseInt(taskId, 10)
+        );
         matchingTask.title = updatedTitle;
         localStorage.setItem("projects", JSON.stringify(projects));
     });
