@@ -269,7 +269,7 @@ function createProjectTask(text) {
     removeTaskButton.addEventListener("click", (e) => {
         const projects = JSON.parse(localStorage.getItem("projects")) || [];
         const { taskId } = e.target.parentNode.dataset;
-        console.log(taskId); // saving the indexes correct but not getting them correct!
+        console.log(taskId);
         const { projectId } = e.target.parentNode.parentNode.parentNode.dataset;
         const projectIndex = projects.findIndex(
             (p) => parseInt(p.id, 10) === parseInt(projectId, 10)
@@ -277,8 +277,6 @@ function createProjectTask(text) {
         const taskIndex = projects[projectIndex].tasks.findIndex(
             (t) => parseInt(t.id, 10) === parseInt(taskId, 10)
         );
-        console.log(projectIndex);
-        console.log(taskIndex);
         projects[projectIndex].tasks.splice(taskIndex, 1);
         localStorage.setItem("projects", JSON.stringify(projects));
         e.target.parentNode.remove();
