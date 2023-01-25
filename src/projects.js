@@ -242,7 +242,6 @@ function createProjectTask(text) {
     task.addEventListener("input", (e) => {
         const projects = JSON.parse(localStorage.getItem("projects")) || [];
         const { taskId } = taskContainer.dataset;
-        console.log(taskId);
         const { projectId } =
             e.target.parentNode.parentNode.parentNode.parentNode.dataset;
         const updatedTitle = e.target.textContent;
