@@ -267,20 +267,20 @@ function createProjectTask(text) {
     task.focus();
 
     removeTaskButton.addEventListener("click", (e) => {
-        const data = localStorage.getItem("projects");
-        const { projects } = JSON.parse(data);
-        const { taskId } = e.target.parentNode.dataset; // saving the indexes correct but not getting them correct!
-        console.log(`${taskId} taskId`);
+        const projects = JSON.parse(localStorage.getItem("projects")) || [];
+        const { taskId } = e.target.parentNode.dataset;
+        console.log(taskId); // saving the indexes correct but not getting them correct!
         const { projectId } = e.target.parentNode.parentNode.parentNode.dataset;
-        console.log(`${projectId} project id`);
         const projectIndex = projects.findIndex(
-            (project) => project.id === projectId
+            (p) => parseInt(p.id, 10) === parseInt(projectId, 10)
         );
         const taskIndex = projects[projectIndex].tasks.findIndex(
-            (taskItem) => taskItem.id === taskId
+            (t) => parseInt(t.id, 10) === parseInt(taskId, 10)
         );
+        console.log(projectIndex);
+        console.log(taskIndex);
         projects[projectIndex].tasks.splice(taskIndex, 1);
-        localStorage.setItem("projects", JSON.stringify({ projects }));
+        localStorage.setItem("projects", JSON.stringify(projects));
         e.target.parentNode.remove();
     });
     return taskContainer;
