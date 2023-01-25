@@ -113,7 +113,6 @@ function createProjectContainer() {
             const index = projects.findIndex(
                 (p) => parseInt(p.id, 10) === parseInt(projectId, 10)
             );
-            console.log(index);
             projects.splice(index, 1);
             projectContainer.removeChild(e.target.parentNode.parentNode);
             localStorage.setItem("projects", JSON.stringify(projects));
