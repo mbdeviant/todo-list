@@ -146,13 +146,13 @@ Project.saveButton.addEventListener("click", () => {
     const projectTitle = Project.titlePreview.value.trim();
     const project = createProject(projectTitle);
     project.dataset.projectId = Id.projectId;
-    console.log(`${Id.projectId} id module`);
-    console.log(`${project.dataset.projectId}dataset id`);
+
     projects.push({
         title: projectTitle,
         id: Id.projectId,
         tasks: [],
     });
+
     localStorage.setItem("projects", JSON.stringify(projects));
     Id.incrementProjectId();
 
