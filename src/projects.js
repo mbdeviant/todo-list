@@ -107,21 +107,16 @@ function createProjectContainer() {
     });
 
     projectContainer.addEventListener("click", (e) => {
-        const data = localStorage.getItem("projects");
-        if (!data) return;
-
-        const { projects } = JSON.parse(data);
-
         if (e.target.matches(".remove-button")) {
+            const projects = JSON.parse(localStorage.getItem("projects")) || [];
             const { projectId } = e.target.parentNode.parentNode.dataset;
-            console.log(projectId);
-            return;
             const index = projects.findIndex(
-                (project) => project.projectId === projectId
+                (p) => parseInt(p.id, 10) === parseInt(projectId, 10)
             );
-            projects.splice(projectId, 1);
+            console.log(index);
+            projects.splice(index, 1);
             projectContainer.removeChild(e.target.parentNode.parentNode);
-            localStorage.setItem("projects", JSON.stringify({ projects }));
+            localStorage.setItem("projects", JSON.stringify(projects));
         }
     });
 
