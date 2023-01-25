@@ -202,7 +202,6 @@ function createProject(title) {
             (p) => parseInt(p.id, 10) === parseInt(projectId, 10)
         );
 
-        console.log(projectIndex.title);
         projectIndex.tasks.push({ title: text, id: task.dataset.taskId });
         localStorage.setItem("projects", JSON.stringify(projects));
         Id.incrementTaskId();
