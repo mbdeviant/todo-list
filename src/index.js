@@ -1,7 +1,9 @@
 import createNoteDisplay from "./notes";
 import createProjectDisplay from "./projects";
 import createTasksDisplay from "./tasks";
+import createTodayDisplay from "./tasks-today";
 
-createNoteDisplay();
 createTasksDisplay();
+createTodayDisplay();
 createProjectDisplay();
+createNoteDisplay();
