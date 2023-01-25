@@ -266,7 +266,6 @@ function createProjectTask(text) {
     removeTaskButton.addEventListener("click", (e) => {
         const projects = JSON.parse(localStorage.getItem("projects")) || [];
         const { taskId } = e.target.parentNode.dataset;
-        console.log(taskId);
         const { projectId } = e.target.parentNode.parentNode.parentNode.dataset;
         const projectIndex = projects.findIndex(
             (p) => parseInt(p.id, 10) === parseInt(projectId, 10)
