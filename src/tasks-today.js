@@ -1,20 +1,20 @@
+import { createTask } from "./tasks";
+
 export default function createTodayDisplay() {
     const container = document.getElementById("content-container");
     const todayButton = document.getElementById("today-button");
 
     todayButton.addEventListener("click", () => {
+        if (container.querySelector("#task-today-container")) return;
+        removeAllChildNodes(container);
         container.appendChild(createTodayContainer());
         console.log("hehe");
     });
 }
 
 function createTodayContainer() {
-    const container = document.getElementById("content-container");
-
     const taskTodayContainer = document.createElement("div");
     taskTodayContainer.setAttribute("id", "task-today-container");
-    const testButton = document.createElement("button");
-    testButton.textContent = "test";
 
     const todaysDate = new Date();
     const yyyy = todaysDate.getFullYear();
@@ -25,13 +25,18 @@ function createTodayContainer() {
     const formattedDate = `${yyyy}-${mm}-${dd}`;
 
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    testButton.addEventListener("click", () => {
-        console.log(tasks.filter((task) => task.date === formattedDate));
-        // console.log(tasks[0].date);
-        // console.log(formattedDate);
+    const filteredTasks = tasks.filter((task) => task.date === formattedDate);
+
+    filteredTasks.forEach((task) => {
+        const taskItem = createTask(
+            task.desc,
+            task.date,
+            task.priority,
+            task.check
+        );
+        taskTodayContainer.appendChild(taskItem);
     });
 
-    taskTodayContainer.appendChild(testButton);
     return taskTodayContainer;
 }
 
