@@ -28,13 +28,30 @@ function createTodayContainer() {
     const filteredTasks = tasks.filter((task) => task.date === formattedDate);
 
     filteredTasks.forEach((task) => {
+        const index = tasks.findIndex((item) => item === task);
         const taskItem = createTask(
             task.desc,
             task.date,
             task.priority,
             task.check
         );
+        taskItem.dataset.id = index;
+        console.log(index);
         taskTodayContainer.appendChild(taskItem);
+    });
+
+    taskTodayContainer.addEventListener("click", (e) => {
+        const index = e.target.parentNode.parentNode.parentNode.dataset.id;
+        if (e.target.matches(".remove-button")) {
+            taskTodayContainer.removeChild(
+                e.target.parentNode.parentNode.parentNode
+            );
+            tasks.splice(index, 1);
+        }
+        if (e.target.matches(".checkbox")) {
+            tasks[index].check = !tasks[index].check;
+        }
+        localStorage.setItem("tasks", JSON.stringify(tasks));
     });
 
     return taskTodayContainer;
