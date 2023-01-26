@@ -162,7 +162,7 @@ Form.addTaskButton.addEventListener("click", (e) => {
     Overlay.close();
 });
 
-function createTask(desc, due, priorityValue, check) {
+export function createTask(desc, due, priorityValue, check) {
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
     const taskInfo = document.createElement("div");
