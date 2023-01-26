@@ -90,7 +90,8 @@ img {
     padding: 8px 0px;
 }
 #task-item-container,
-#project-container {
+#project-container,
+#task-today-container {
     display: flex;
     gap: 16px;
     padding: 8px 0px 0px 0px;
@@ -446,7 +447,8 @@ img {
         width: 100%;
         align-items: center;
     }
-    #task-item-container {
+    #task-item-container,
+    #task-today-container {
         width: 100%;
         padding-top: 4px;
     }
