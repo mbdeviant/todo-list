@@ -8,7 +8,6 @@ export default function createTodayDisplay() {
         if (container.querySelector("#task-today-container")) return;
         removeAllChildNodes(container);
         container.appendChild(createTodayContainer());
-        console.log("hehe");
     });
 }
 
@@ -36,7 +35,6 @@ function createTodayContainer() {
             task.check
         );
         taskItem.dataset.id = index;
-        console.log(index);
         taskTodayContainer.appendChild(taskItem);
     });
 
