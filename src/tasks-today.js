@@ -12,8 +12,15 @@ export default function createTodayDisplay() {
 }
 
 function createTodayContainer() {
+    const container = document.getElementById("content-container");
+
     const taskTodayContainer = document.createElement("div");
     taskTodayContainer.setAttribute("id", "task-today-container");
+
+    const title = document.createElement("p");
+    title.textContent = "Today's tasks";
+    title.classList.add("task-today-title");
+    container.appendChild(title);
 
     const todaysDate = new Date();
     const yyyy = todaysDate.getFullYear();
@@ -25,6 +32,14 @@ function createTodayContainer() {
 
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     const filteredTasks = tasks.filter((task) => task.date === formattedDate);
+
+    const emptyTaskMessage = document.createElement("p");
+    emptyTaskMessage.classList.add("empty-task-message");
+    emptyTaskMessage.textContent =
+        "It's too weird, I'm looking over and over again but I can't see anything to do today.";
+
+    const noTasksToday = filteredTasks.length === 0;
+    if (noTasksToday) taskTodayContainer.appendChild(emptyTaskMessage);
 
     filteredTasks.forEach((task) => {
         const index = tasks.findIndex((item) => item === task);
