@@ -102,7 +102,8 @@ img {
 
 .new-note-button,
 .new-task-button,
-.new-project-button {
+.new-project-button,
+.task-today-title {
     align-self: center;
     font-size: 24px;
     margin-top: 14px;
@@ -114,6 +115,14 @@ img {
     border-color: transparent;
     transition: 0.2s;
     user-select: none;
+}
+.task-today-title {
+    font-family: Arial;
+    font-size: 24px;
+    margin-top: 18px;
+}
+.empty-task-message {
+    font-family: Arial, sans-serif;
 }
 .new-note-button:hover,
 .new-task-button:hover,
@@ -305,6 +314,9 @@ img {
 }
 .completed > p {
     text-decoration: line-through;
+}
+.selected {
+    background-color: gold;
 }
 
 .task-desc-preview,
