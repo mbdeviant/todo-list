@@ -2,10 +2,13 @@ import { createTask } from "./tasks";
 
 export default function createTodayDisplay() {
     const container = document.getElementById("content-container");
+    const buttons = document.querySelectorAll(".nav-button");
     const todayButton = document.getElementById("today-button");
 
     todayButton.addEventListener("click", () => {
         if (container.querySelector("#task-today-container")) return;
+        buttons.forEach((button) => button.classList.remove("selected"));
+        todayButton.classList.add("selected");
         removeAllChildNodes(container);
         container.appendChild(createTodayContainer());
     });
