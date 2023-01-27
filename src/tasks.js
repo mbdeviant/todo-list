@@ -1,9 +1,12 @@
 export default function createTasksDisplay() {
     const container = document.getElementById("content-container");
+    const buttons = document.querySelectorAll(".nav-button");
     const tasksButton = document.getElementById("tasks-button");
 
     tasksButton.addEventListener("click", () => {
         if (container.querySelector("#task-item-container")) return;
+        buttons.forEach((button) => button.classList.remove("selected"));
+        tasksButton.classList.add("selected");
         removeAllChildNodes(container);
         container.appendChild(createTaskContainer());
     });
