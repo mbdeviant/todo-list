@@ -1,9 +1,12 @@
 export default function createProjectDisplay() {
     const container = document.getElementById("content-container");
+    const buttons = document.querySelectorAll(".nav-button");
     const projectsButton = document.getElementById("projects-button");
 
     projectsButton.addEventListener("click", () => {
         if (container.querySelector("#project-container")) return;
+        buttons.forEach((button) => button.classList.remove("selected"));
+        projectsButton.classList.add("selected");
         removeAllChildNodes(container);
         container.appendChild(createProjectContainer());
     });
