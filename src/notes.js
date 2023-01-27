@@ -16,7 +16,7 @@ function createNoteContainer() {
     const newNoteButton = document.createElement("button");
     newNoteButton.classList.add("new-note-button");
     newNoteButton.setAttribute("id", "new-note-button");
-    newNoteButton.innerHTML = "+Add a new note";
+    newNoteButton.innerHTML = "+New note";
 
     container.appendChild(newNoteButton);
 
