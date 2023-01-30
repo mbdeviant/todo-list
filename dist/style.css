@@ -191,6 +191,7 @@ img {
   background-color: rgba(0, 0, 0, 0.7);
 }
 .task-form-container {
+  font-family: "Poppins", sans-serif;
   max-width: 400px;
   height: 230px;
   display: flex;
@@ -266,6 +267,7 @@ img {
 }
 
 .task-item {
+  font-family: "Poppins", sans-serif;
   width: 80%;
   padding: 30px 20px;
   background-color: rgba(0, 0, 0, 0.2);
