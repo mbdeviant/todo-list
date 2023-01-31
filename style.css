@@ -280,9 +280,9 @@ img {
 
 .task-info {
   width: 100%;
-  gap: 20px;
+  gap: 10px;
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 2fr 1fr;
   grid-template-rows: auto;
   align-items: center;
 }
@@ -291,7 +291,7 @@ img {
 .right {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 3px;
 }
 .left {
   grid-column: 1 / 2;
@@ -305,6 +305,7 @@ img {
   grid-column: 2 / 3;
   align-self: center;
   justify-content: space-between;
+  text-align: left;
 }
 
 .completed {
@@ -317,14 +318,14 @@ img {
   background-color: gold;
 }
 
-.task-desc-preview,
 .task-date-preview,
 .task-priority-preview {
-  font-size: 16px;
+  width: 100%;
+  font-size: 14px;
   cursor: default;
 }
 .task-desc-preview {
-  font-size: 21px;
+  font-size: 20px;
   width: 80%;
 }
 .checkbox {
@@ -473,12 +474,13 @@ img {
   }
 
   .task-desc-preview {
+    font-size: 16px;
     min-width: 150px;
   }
-  .task-desc-preview,
+
   .task-date-preview,
   .task-priority-preview {
-    font-size: 16px;
+    font-size: 13px;
   }
   .task-date-preview {
     min-width: 72px;
@@ -488,7 +490,7 @@ img {
   }
   .right {
     width: 200px;
-    gap: 2px;
+    gap: 12px;
   }
 
   #note-container {
