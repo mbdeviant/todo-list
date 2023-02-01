@@ -53,6 +53,8 @@ nav > button {
   border: 1px;
   border-radius: 2px;
   padding: 4px 2px;
+}
+nav > button:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -315,7 +317,7 @@ img {
   text-decoration: line-through;
 }
 .selected {
-  background-color: gold;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .task-date-preview,
