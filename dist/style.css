@@ -45,7 +45,7 @@ h1 {
   min-width: 300px;
   gap: 1px;
   padding-top: 18px;
-  background-color: rgb(155, 153, 153);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 nav > button {
   font-size: 17px;
