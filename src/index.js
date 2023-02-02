@@ -7,3 +7,6 @@ createTasksDisplay();
 createTodayDisplay();
 createProjectDisplay();
 createNoteDisplay();
+
+const todayButton = document.getElementById("today-button");
+window.onload = todayButton.click();
