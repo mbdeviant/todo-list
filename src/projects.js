@@ -163,9 +163,7 @@ Project.saveButton.addEventListener("click", () => {
   Project.reset();
 });
 Project.cancelButton.addEventListener("click", () => {
-  const container = document.getElementById("project-container");
-  container.removeChild(Project.newItem);
-  Project.reset();
+  removeNewProjectDisplay();
 });
 
 function createProject(title) {
@@ -291,6 +289,7 @@ function removeNewProjectDisplay() {
   const container = document.getElementById("project-container");
   if (container.querySelector(".new-item-display"))
     container.removeChild(Project.newItem);
+  Project.reset();
 }
 
 function removeAllChildNodes(parent) {
