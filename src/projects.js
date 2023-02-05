@@ -234,6 +234,7 @@ function createProjectTask(text) {
   const left = document.createElement("div");
   left.classList.add("task-container-left");
   const mark = document.createElement("p");
+  mark.classList.add("project-task-mark");
   mark.textContent = "●";
 
   const task = document.createElement("p");
