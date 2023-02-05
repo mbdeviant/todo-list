@@ -420,6 +420,7 @@ img {
   font-size: 14px;
   width: 50%;
   overflow: auto;
+  border: 1px solid transparent;
 }
 .project-task-title:focus {
   outline: none;
