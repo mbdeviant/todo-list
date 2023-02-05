@@ -411,7 +411,7 @@ img {
 }
 .task-container-left {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 2px;
   width: 100%;
 }
@@ -425,8 +425,12 @@ img {
   outline: none;
   border-bottom: 1px solid black;
 }
+.project-task-mark {
+  margin-top: 2px;
+}
 .project-task-remove-button {
   font-family: cursive;
+  align-self: flex-start;
   background-color: transparent;
   border: transparent;
   margin-right: 6px;
