@@ -90,7 +90,7 @@ img {
 .new-project-button,
 .task-today-title {
   align-self: center;
-  font-size: 24px;
+  font-size: 32px;
   margin-top: 14px;
   padding: 4px;
   width: auto;
@@ -103,11 +103,12 @@ img {
 }
 .task-today-title {
   font-family: Arial;
-  font-size: 24px;
+  font-size: 30px;
   margin-top: 18px;
 }
 .empty-task-message {
   font-family: Arial, sans-serif;
+  font-size: 1.2em;
 }
 .new-note-button:hover,
 .new-task-button:hover,
