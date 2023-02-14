@@ -38,7 +38,14 @@ function createTodayContainer() {
 
   const emptyTaskMessage = document.createElement("p");
   emptyTaskMessage.classList.add("empty-task-message");
-  emptyTaskMessage.textContent = "Nothing to do today.";
+  emptyTaskMessage.innerHTML = `Nothing to do today. Click <button class="new-today-task-button">here</button> to create a new task.`;
+
+  document.addEventListener("click", (e) => {
+    if (e.target.matches(".new-today-task-button")) {
+      const tasksButton = document.getElementById("tasks-button");
+      tasksButton.click();
+    }
+  });
 
   const noTasksToday = filteredTasks.length === 0;
   if (noTasksToday) taskTodayContainer.appendChild(emptyTaskMessage);
