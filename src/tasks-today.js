@@ -38,7 +38,7 @@ function createTodayContainer() {
 
   const emptyTaskMessage = document.createElement("p");
   emptyTaskMessage.classList.add("empty-task-message");
-  emptyTaskMessage.innerHTML = `Nothing to do today. Click <button class="new-today-task-button">here</button> to see all tasks.`;
+  emptyTaskMessage.innerHTML = `Nothing to do today. Click <button class="new-today-task-button">here</button> to view all tasks.`;
 
   document.addEventListener("click", (e) => {
     if (e.target.matches(".new-today-task-button")) {
