@@ -267,7 +267,6 @@ function createProjectTask(text) {
   left.appendChild(task);
   taskContainer.appendChild(left);
   taskContainer.appendChild(removeTaskButton);
-  task.focus();
 
   removeTaskButton.addEventListener("click", (e) => {
     const projects = JSON.parse(localStorage.getItem("projects")) || [];
