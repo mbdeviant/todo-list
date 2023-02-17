@@ -180,7 +180,8 @@ img {
   left: 0;
   right: 0;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
 }
 .task-form-container {
   font-family: "Poppins", sans-serif;
