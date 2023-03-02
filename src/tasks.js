@@ -98,6 +98,7 @@ function createTaskContainer() {
 
   const newTaskButton = document.createElement("button");
   newTaskButton.textContent = "+New task";
+  newTaskButton.setAttribute("id", "new-task-button");
   newTaskButton.classList.add("new-task-button");
   container.appendChild(newTaskButton);
 
