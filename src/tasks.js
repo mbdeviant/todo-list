@@ -117,6 +117,7 @@ function createTaskContainer() {
     if (e.target.matches(".remove-button")) {
       taskItemContainer.removeChild(e.target.parentNode.parentNode.parentNode);
       tasks.splice(index, 1);
+      if (tasks.length === 0) taskItemContainer.appendChild(showMessage());
     }
     if (e.target.matches(".checkbox")) {
       tasks[index].check = !tasks[index].check;
@@ -126,6 +127,7 @@ function createTaskContainer() {
 
   function loadSavedTasks() {
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    if (tasks.length === 0) taskItemContainer.appendChild(showMessage());
     // eslint-disable-next-line no-restricted-syntax
     for (const task of tasks) {
       const taskItem = createTask(
@@ -140,11 +142,14 @@ function createTaskContainer() {
   }
 
   loadSavedTasks();
+
   return taskItemContainer;
 }
 
 Form.addTaskButton.addEventListener("click", (e) => {
   const taskItemContainer = document.getElementById("task-item-container");
+  const message = document.getElementById("empty-task-message");
+  if (message) taskItemContainer.removeChild(message);
   e.preventDefault();
 
   if (Form.isEmpty()) {
@@ -232,6 +237,16 @@ export function createTask(desc, due, priorityValue, check) {
   taskItem.appendChild(taskInfo);
 
   return taskItem;
+}
+
+function showMessage() {
+  const emptyTaskMessage = document.createElement("p");
+  emptyTaskMessage.classList.add("empty-task-message");
+  emptyTaskMessage.setAttribute("id", "empty-task-message");
+  emptyTaskMessage.innerHTML = `You don't have any tasks yet. You can create a new task from button above.`;
+  console.log("boş");
+
+  return emptyTaskMessage;
 }
 
 function removeAllChildNodes(parent) {
