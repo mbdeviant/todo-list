@@ -105,6 +105,8 @@ function createProjectContainer() {
   container.appendChild(newProjectButton);
 
   newProjectButton.addEventListener("click", () => {
+    const message = document.getElementById("empty-data-message");
+    if (message) projectContainer.removeChild(message);
     projectContainer.appendChild(Project.newItem);
     Project.titlePreview.focus();
   });
@@ -119,12 +121,18 @@ function createProjectContainer() {
       projects.splice(index, 1);
       projectContainer.removeChild(e.target.parentNode.parentNode);
       localStorage.setItem("projects", JSON.stringify(projects));
+      if (projects.length === 0) projectContainer.appendChild(showMessage());
     }
+  });
+  Project.cancelButton.addEventListener("click", () => {
+    const projects = JSON.parse(localStorage.getItem("projects")) || [];
+    if (projects.length === 0) projectContainer.appendChild(showMessage());
+    removeNewProjectDisplay();
   });
 
   function getDataFromLocalStorage() {
     const projects = JSON.parse(localStorage.getItem("projects")) || [];
-    if (!projects) return;
+    if (projects.length === 0) projectContainer.appendChild(showMessage());
     projects.forEach((project) => {
       const projectItem = createProject(project.title);
       projectItem.dataset.projectId = project.id;
@@ -161,9 +169,6 @@ Project.saveButton.addEventListener("click", () => {
   container.appendChild(project);
   container.removeChild(Project.newItem);
   Project.reset();
-});
-Project.cancelButton.addEventListener("click", () => {
-  removeNewProjectDisplay();
 });
 
 function createProject(title) {
@@ -290,6 +295,14 @@ function removeNewProjectDisplay() {
   if (container.querySelector(".new-item-display"))
     container.removeChild(Project.newItem);
   Project.reset();
+}
+function showMessage() {
+  const emptyDataMessage = document.createElement("p");
+  emptyDataMessage.classList.add("empty-data-message");
+  emptyDataMessage.setAttribute("id", "empty-data-message");
+  emptyDataMessage.innerHTML = `You don't have any projects yet. You can create a new project from button above.`;
+
+  return emptyDataMessage;
 }
 
 function removeAllChildNodes(parent) {
