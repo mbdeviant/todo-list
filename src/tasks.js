@@ -148,7 +148,7 @@ function createTaskContainer() {
 
 Form.addTaskButton.addEventListener("click", (e) => {
   const taskItemContainer = document.getElementById("task-item-container");
-  const message = document.getElementById("empty-task-message");
+  const message = document.getElementById("empty-data-message");
   e.preventDefault();
 
   if (Form.isEmpty()) {
@@ -240,13 +240,12 @@ export function createTask(desc, due, priorityValue, check) {
 }
 
 function showMessage() {
-  const emptyTaskMessage = document.createElement("p");
-  emptyTaskMessage.classList.add("empty-task-message");
-  emptyTaskMessage.setAttribute("id", "empty-task-message");
-  emptyTaskMessage.innerHTML = `You don't have any tasks yet. You can create a new task from button above.`;
-  console.log("boş");
+  const emptyDataMessage = document.createElement("p");
+  emptyDataMessage.classList.add("empty-data-message");
+  emptyDataMessage.setAttribute("id", "empty-data-message");
+  emptyDataMessage.innerHTML = `You don't have any tasks yet. You can create a new task from button above.`;
 
-  return emptyTaskMessage;
+  return emptyDataMessage;
 }
 
 function removeAllChildNodes(parent) {
