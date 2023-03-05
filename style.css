@@ -40,6 +40,7 @@ h1:hover,
 }
 #content-container {
   display: flex;
+  position: relative;
   flex-direction: column;
   padding-left: 25px;
   width: 100%;
@@ -74,6 +75,7 @@ img {
 }
 #note-container {
   width: 1fr;
+
   max-height: calc(100% - 28px);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
@@ -117,8 +119,9 @@ img {
   font-size: 1.2em;
 }
 #empty-data-message-notes {
-  grid-column: 1/4;
-  text-align: center;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
 }
 
 .new-today-task-button {
