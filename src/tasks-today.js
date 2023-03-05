@@ -36,9 +36,9 @@ function createTodayContainer() {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   const filteredTasks = tasks.filter((task) => task.date === formattedDate);
 
-  const emptyTaskMessage = document.createElement("p");
-  emptyTaskMessage.classList.add("empty-task-message");
-  emptyTaskMessage.innerHTML = `You have nothing to do today. Click <button class="new-today-task-button">here</button> to create a new task.`;
+  const emptyDataMessage = document.createElement("p");
+  emptyDataMessage.classList.add("empty-data-message");
+  emptyDataMessage.innerHTML = `You have nothing to do today. Click <button class="new-today-task-button">here</button> to create a new task.`;
 
   document.addEventListener("click", (e) => {
     if (e.target.matches(".new-today-task-button")) {
@@ -50,7 +50,7 @@ function createTodayContainer() {
   });
 
   const noTasksToday = filteredTasks.length === 0;
-  if (noTasksToday) taskTodayContainer.appendChild(emptyTaskMessage);
+  if (noTasksToday) taskTodayContainer.appendChild(emptyDataMessage);
 
   filteredTasks.forEach((task) => {
     const index = tasks.findIndex((item) => item === task);
@@ -69,6 +69,7 @@ function createTodayContainer() {
     if (e.target.matches(".remove-button")) {
       taskTodayContainer.removeChild(e.target.parentNode.parentNode.parentNode);
       tasks.splice(index, 1);
+      if (tasks.length === 0) taskTodayContainer.appendChild(emptyDataMessage);
     }
     if (e.target.matches(".checkbox")) {
       tasks[index].check = !tasks[index].check;
