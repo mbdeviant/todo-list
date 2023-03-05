@@ -149,7 +149,6 @@ function createTaskContainer() {
 Form.addTaskButton.addEventListener("click", (e) => {
   const taskItemContainer = document.getElementById("task-item-container");
   const message = document.getElementById("empty-task-message");
-  if (message) taskItemContainer.removeChild(message);
   e.preventDefault();
 
   if (Form.isEmpty()) {
@@ -171,6 +170,7 @@ Form.addTaskButton.addEventListener("click", (e) => {
     check: checkInit,
   });
 
+  if (message) taskItemContainer.removeChild(message);
   localStorage.setItem("tasks", JSON.stringify(tasks));
   taskItemContainer.appendChild(task);
   Overlay.close();
