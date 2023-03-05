@@ -112,10 +112,15 @@ img {
   font-family: Arial;
   margin-top: 18px;
 }
-.empty-task-message {
+.empty-data-message {
   font-family: Arial, sans-serif;
   font-size: 1.2em;
 }
+#empty-data-message-notes {
+  grid-column: 1/4;
+  text-align: center;
+}
+
 .new-today-task-button {
   font-family: Arial, sans-serif;
   background-color: transparent;
