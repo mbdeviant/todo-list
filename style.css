@@ -123,6 +123,9 @@ img {
   left: 50%;
   transform: translate(-50%, 0%);
 }
+.empty-data-message {
+  cursor: default;
+}
 
 .new-today-task-button {
   font-family: Arial, sans-serif;
@@ -338,9 +341,15 @@ img {
   font-size: 20px;
   width: 80%;
 }
+.task-desc-preview:hover {
+  cursor: default;
+}
 .checkbox {
   width: 15px;
   height: 15px;
+}
+.checkbox:hover {
+  cursor: pointer;
 }
 
 .new-item-display {
