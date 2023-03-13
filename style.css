@@ -1,547 +1,549 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 body,
 html {
-  min-height: 100%;
+    min-height: 100%;
 }
 
 .header {
-  display: flex;
-  align-items: center;
-  padding: 25px 25px 25px 40px;
-  color: #eeeeee;
-  background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    padding: 25px 25px 25px 40px;
+    color: #eeeeee;
+    background-color: rgba(0, 0, 0, 0.8);
 }
 h1 {
-  font-size: 40px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  user-select: none;
+    font-size: 40px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    user-select: none;
 }
 h1:hover,
 .logo-img:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 #main-title {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 #main-title .logo-img {
-  width: 50px;
-  height: 50px;
+    width: 50px;
+    height: 50px;
 }
 
 .container {
-  display: flex;
-  min-height: calc(100vh - 100px - 28px);
+    display: flex;
+    min-height: calc(100vh - 100px - 28px);
 }
 #content-container {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  padding-left: 25px;
-  width: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    padding-left: 25px;
+    width: 100%;
 }
 .nav {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 300px;
-  padding-top: 18px;
-  background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 300px;
+    padding-top: 18px;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 nav > button {
-  font-size: 24px;
-  width: 70%;
-  border: 1px;
-  border-radius: 2px;
-  padding: 4px 2px;
-  background-color: transparent;
+    font-size: 24px;
+    width: 70%;
+    border: 1px;
+    border-radius: 2px;
+    padding: 4px 2px;
+    background-color: transparent;
 }
 nav > button:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 img {
-  width: 17px;
-  height: 17px;
+    width: 17px;
+    height: 17px;
 }
 #note-container {
-  width: 1fr;
+    width: 1fr;
 
-  max-height: calc(100% - 28px);
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  gap: 20px;
-  padding: 8px 0px;
+    max-height: calc(100% - 28px);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 20px;
+    padding: 8px 0px;
 }
 #task-item-container,
 #project-container,
 #task-today-container {
-  display: flex;
-  gap: 16px;
-  padding: 8px 0px 0px 0px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    gap: 16px;
+    padding: 8px 0px 0px 0px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .new-note-button,
 .new-task-button,
 .new-project-button,
 .task-today-title {
-  align-self: center;
-  font-size: 32px;
-  margin-top: 14px;
-  padding: 4px;
-  width: auto;
-  height: auto;
-  background-color: transparent;
-  border-radius: 4px;
-  border-color: transparent;
-  transition: 0.2s;
-  user-select: none;
-  text-decoration: underline;
+    align-self: center;
+    font-size: 32px;
+    margin-top: 14px;
+    padding: 4px;
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    border-radius: 4px;
+    border-color: transparent;
+    transition: 0.2s;
+    user-select: none;
+    text-decoration: underline;
 }
 .task-today-title {
-  font-family: Arial;
-  margin-top: 18px;
+    font-family: Arial;
+    margin-top: 18px;
 }
 .empty-data-message {
-  font-family: Arial, sans-serif;
-  font-size: 1.2em;
+    font-family: Arial, sans-serif;
+    font-size: 1.2em;
 }
 #empty-data-message-notes {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0%);
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
 }
 .empty-data-message {
-  cursor: default;
+    cursor: default;
 }
 
 .new-today-task-button {
-  font-family: Arial, sans-serif;
-  background-color: transparent;
-  border: transparent;
-  font-size: 1em;
-  text-decoration: underline;
+    font-family: Arial, sans-serif;
+    background-color: transparent;
+    border: transparent;
+    font-size: 1em;
+    text-decoration: underline;
 }
 .new-note-button:hover,
 .new-task-button:hover,
 .new-project-button:hover {
-  background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 .note-item {
-  display: flex;
-  background-color: transparent;
-  width: 260px;
-  border-radius: 4px;
-  padding: 3px;
-  gap: 5px;
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    display: flex;
+    background-color: transparent;
+    width: 260px;
+    border-radius: 4px;
+    padding: 3px;
+    gap: 5px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+        rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
 .remove-button {
-  font-family: cursive;
-  font-weight: 900;
-  width: fit-content;
-  height: fit-content;
-  padding: 2px;
-  margin-left: 1px;
-  border-radius: 3px;
-  background-color: transparent;
-  border-color: transparent;
-  transition: 0.1s;
+    font-family: cursive;
+    font-weight: 900;
+    width: fit-content;
+    height: fit-content;
+    padding: 2px;
+    margin-left: 1px;
+    border-radius: 3px;
+    background-color: transparent;
+    border-color: transparent;
+    transition: 0.1s;
 }
 .remove-button:hover {
-  background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 .note-text {
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  background-color: transparent;
-  border: transparent;
-  resize: none;
-  padding: 4px 8px 8px 8px;
-  height: 170px;
-  min-width: 220px;
-  min-height: 30px;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    background-color: transparent;
+    border: transparent;
+    resize: none;
+    padding: 4px 8px 8px 8px;
+    height: 170px;
+    min-width: 220px;
+    min-height: 30px;
 }
 .note-text::-webkit-scrollbar {
-  width: 1px;
+    width: 1px;
 }
 .note-text::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 .note-text::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
 }
 
 .note-text:focus {
-  outline: none;
+    outline: none;
 }
 
 #task-form-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
 }
 .task-form-container {
-  font-family: "Poppins", sans-serif;
-  max-width: 400px;
-  height: 230px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-  margin: auto;
-  padding: 25px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #b3b3b3;
-  border: transparent;
-  border-radius: 12px;
-  border: 1px solid black;
+    font-family: "Poppins", sans-serif;
+    max-width: 400px;
+    height: 230px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin: auto;
+    padding: 25px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #b3b3b3;
+    border: transparent;
+    border-radius: 12px;
+    border: 1px solid black;
 }
 .task-form-container > h2 {
-  font-size: 30px;
+    font-size: 30px;
 }
 #task-form {
-  width: 100%;
-  height: auto;
-  gap: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: 0.3s;
+    width: 100%;
+    height: auto;
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: 0.3s;
 }
 .task-desc {
-  border-radius: 4px;
-  padding: 0 10px;
-  min-width: 60%;
-  height: 30px;
-  border: transparent;
+    border-radius: 4px;
+    padding: 0 10px;
+    min-width: 60%;
+    height: 30px;
+    border: transparent;
 }
 .task-desc:focus {
-  outline: none;
+    outline: none;
 }
 .due-date-container,
 .priority-container {
-  display: flex;
-  align-items: center;
-  height: 30px;
-  justify-content: space-between;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    justify-content: space-between;
 }
 .task-due-date,
 #task-priority-dropdown {
-  width: 100px;
-  height: 30px;
-  border: transparent;
-  border-radius: 4px;
+    width: 100px;
+    height: 30px;
+    border: transparent;
+    border-radius: 4px;
 }
 .task-due-date:focus,
 #task-priority-dropdown:focus {
-  outline: 1px solid black;
+    outline: 1px solid black;
 }
 
 .add-task-button {
-  width: 75px;
-  height: 30px;
-  padding: 2px;
-  border: transparent;
-  align-self: center;
-  border-radius: 4px;
+    width: 75px;
+    height: 30px;
+    padding: 2px;
+    border: transparent;
+    align-self: center;
+    border-radius: 4px;
 }
 
 #form-warning {
-  position: absolute;
-  top: 255px;
+    position: absolute;
+    top: 255px;
 }
 
 .task-item {
-  font-family: "Poppins", sans-serif;
-  width: 80%;
-  padding: 30px 20px;
-  background-color: rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  height: auto;
-  border-radius: 4px;
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    font-family: "Poppins", sans-serif;
+    width: 80%;
+    padding: 30px 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+        rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
 .task-info {
-  width: 100%;
-  gap: 10px;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: auto;
-  align-items: center;
+    width: 100%;
+    gap: 10px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto;
+    align-items: center;
 }
 
 .left,
 .right {
-  display: flex;
-  align-items: center;
-  gap: 3px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
 }
 .left {
-  grid-column: 1 / 2;
-  align-self: center;
+    grid-column: 1 / 2;
+    align-self: center;
 }
 .project-item-left {
-  display: flex;
-  gap: 5px;
+    display: flex;
+    gap: 5px;
 }
 .right {
-  grid-column: 2 / 3;
-  align-self: center;
-  justify-content: space-between;
-  text-align: left;
+    grid-column: 2 / 3;
+    align-self: center;
+    justify-content: space-between;
+    text-align: left;
 }
 
 .completed {
-  background-color: gray;
+    background-color: gray;
 }
 .completed > p {
-  text-decoration: line-through;
+    text-decoration: line-through;
 }
 .selected {
-  background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .task-date-preview,
 .task-priority-preview {
-  width: 100%;
-  font-size: 14px;
-  cursor: default;
+    width: 100%;
+    font-size: 14px;
+    cursor: default;
 }
 .task-desc-preview {
-  font-size: 20px;
-  width: 80%;
+    font-size: 20px;
+    width: 80%;
 }
 .task-desc-preview:hover {
-  cursor: default;
+    cursor: default;
 }
 .checkbox {
-  width: 15px;
-  height: 15px;
+    width: 15px;
+    height: 15px;
 }
 .checkbox:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .new-item-display {
-  width: 60%;
-  max-width: 800px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 12px;
+    width: 60%;
+    max-width: 800px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 12px;
 }
 .new-project-title {
-  grid-column: 1/3;
-  height: 30px;
-  font-size: 14px;
-  border-radius: 4px;
-  padding-left: 2px;
-  border: 1px solid black;
+    grid-column: 1/3;
+    height: 30px;
+    font-size: 14px;
+    border-radius: 4px;
+    padding-left: 2px;
+    border: 1px solid black;
 }
 .new-project-title:focus {
-  outline: none;
+    outline: none;
 }
 .save-project-button {
-  grid-row: 2;
-  height: 30px;
-  border-radius: 4px;
-  border: 1px solid black;
-  background-color: rgba(0, 0, 0, 0.2);
-  transition: 0.3s;
+    grid-row: 2;
+    height: 30px;
+    border-radius: 4px;
+    border: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
 }
 .save-project-button:hover {
-  background-color: rgba(0, 120, 0, 0.8);
+    background-color: rgba(0, 120, 0, 0.8);
 }
 .cancel-project-button {
-  grid-row: 2;
-  height: 30px;
-  border: 1px solid black;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  transition: 0.3s;
+    grid-row: 2;
+    height: 30px;
+    border: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    transition: 0.3s;
 }
 .cancel-project-button:hover {
-  background-color: rgba(210, 0, 0, 0.4);
+    background-color: rgba(210, 0, 0, 0.4);
 }
 .project-item {
-  background-color: rgba(0, 0, 0, 0.07);
-  width: 80%;
-  padding: 5px 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.07);
+    width: 80%;
+    padding: 5px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
 }
 .project-item-header {
-  font-family: "Poppins", sans-serif;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 3px solid black;
-  font-size: 18px;
-  font-weight: 800;
+    font-family: "Poppins", sans-serif;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid black;
+    font-size: 18px;
+    font-weight: 800;
 }
 .project-item-header:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 .expand-menu-container {
-  display: none;
-  width: 100%;
+    display: none;
+    width: 100%;
 }
 
 .hidden {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  transition: 1s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: 1s;
 }
 .expand-menu-top {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 .expand-menu-add-button {
-  font-size: 22px;
-  background: transparent;
-  border: 1px solid transparent;
+    font-size: 22px;
+    background: transparent;
+    border: 1px solid transparent;
 }
 
 .project-task-container {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 .task-container-left {
-  display: flex;
-  align-items: flex-start;
-  gap: 2px;
-  width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 2px;
+    width: 100%;
 }
 .project-task-title {
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
-  width: 50%;
-  overflow: auto;
-  border: 1px solid transparent;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    width: 50%;
+    overflow: auto;
+    border: 1px solid transparent;
 }
 .project-task-title:focus {
-  outline: none;
-  border-bottom: 1px solid black;
+    outline: none;
+    border-bottom: 1px solid black;
 }
 .project-task-mark {
-  margin-top: 2px;
+    margin-top: 2px;
 }
 .project-task-remove-button {
-  font-family: cursive;
-  align-self: flex-start;
-  background-color: transparent;
-  border: transparent;
-  margin-right: 6px;
+    font-family: cursive;
+    align-self: flex-start;
+    background-color: transparent;
+    border: transparent;
+    margin-right: 6px;
 }
 .footer {
-  left: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 24px;
-  padding-top: 4px;
-  gap: 4px;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  font-family: monospace;
-  font-style: italic;
-  user-select: none;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 24px;
+    padding-top: 4px;
+    gap: 4px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-family: monospace;
+    font-style: italic;
+    user-select: none;
 }
 
 @media (max-width: 700px) {
-  body {
-    overflow-x: hidden;
-  }
-  .nav {
-    display: none;
-  }
+    body {
+        overflow-x: hidden;
+    }
+    .nav {
+        display: none;
+    }
 
-  #content-container {
-    padding: 0;
-    width: 100%;
-    align-items: center;
-  }
-  #task-item-container,
-  #task-today-container {
-    width: 100%;
-    padding-top: 4px;
-  }
-  #project-container {
-    width: 100%;
-  }
-  .project-item {
-    width: 70%;
-  }
+    #content-container {
+        padding: 0;
+        width: 100%;
+        align-items: center;
+    }
+    #task-item-container,
+    #task-today-container {
+        width: 100%;
+        padding-top: 4px;
+    }
+    #project-container {
+        width: 100%;
+    }
+    .project-item {
+        width: 70%;
+    }
 
-  .task-item {
-    width: 80%;
-    padding: 15px;
-  }
-  .task-info {
-    width: 95%;
-    padding: 0px;
-  }
+    .task-item {
+        width: 80%;
+        padding: 15px;
+    }
+    .task-info {
+        width: 95%;
+        padding: 0px;
+    }
 
-  .task-desc-preview {
-    font-size: 16px;
-    min-width: 150px;
-  }
+    .task-desc-preview {
+        font-size: 16px;
+        min-width: 150px;
+    }
 
-  .task-date-preview,
-  .task-priority-preview {
-    font-size: 13px;
-  }
-  .task-date-preview {
-    min-width: 72px;
-  }
-  .left {
-    width: 200px;
-  }
-  .right {
-    width: 200px;
-    gap: 12px;
-  }
+    .task-date-preview,
+    .task-priority-preview {
+        font-size: 13px;
+    }
+    .task-date-preview {
+        min-width: 72px;
+    }
+    .left {
+        width: 200px;
+    }
+    .right {
+        width: 200px;
+        gap: 12px;
+    }
 
-  #note-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+    #note-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
