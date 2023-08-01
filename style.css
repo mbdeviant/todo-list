@@ -49,7 +49,7 @@ h1:hover,
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 300px;
+  min-width: 240px;
   padding-top: 18px;
   background-color: rgba(0, 0, 0, 0.1);
 }
