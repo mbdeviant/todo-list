@@ -36,6 +36,14 @@ const Overlay = (() => {
     show,
   };
 })();
+
+document.addEventListener("keydown", (e) => {
+  const taskFormOverlay = document.getElementById("task-form-overlay");
+  if (e.key === "Escape") {
+    if (taskFormOverlay.style.display === "block")
+      taskFormOverlay.style.display = "none";
+  }
+});
 const Form = (() => {
   const formContainer = document.getElementById("task-form-container");
   const form = document.getElementById("task-form");
