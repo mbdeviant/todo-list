@@ -108,7 +108,6 @@ img {
   border-color: transparent;
   transition: 0.2s;
   user-select: none;
-  text-decoration: underline;
 }
 .task-today-title {
   font-family: Arial;
@@ -132,7 +131,7 @@ img {
   background-color: transparent;
   border: transparent;
   font-size: 1em;
-  text-decoration: underline;
+  font-weight: bold;
 }
 .new-note-button:hover,
 .new-task-button:hover,
