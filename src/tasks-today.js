@@ -20,7 +20,7 @@ function createTodayContainer() {
   const taskTodayContainer = document.createElement("div");
   taskTodayContainer.setAttribute("id", "task-today-container");
 
-  const title = document.createElement("p");
+  const title = document.createElement("h2");
   title.textContent = "Today's tasks";
   title.classList.add("task-today-title");
   container.appendChild(title);
